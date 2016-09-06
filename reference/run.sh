@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -lselect=1:ncpus=1:mem=2gb
+#PBS -lselect=1:ncpus=4:mem=2gb
 #PBS -lwalltime=72:0:0
 #PBS -J 1-119
 #PBS -N param
@@ -10,8 +10,9 @@ fi
 D=$(head -$PBS_ARRAY_INDEX list | tail -1)
 cd $D
 
-rm -rf minimize esp dihed* param*
+rm -rf parameters* plots* log.txt
 
-export PYTHONPATH="$PWD/../../../../"
-python ../../../../htmd/newparameterization/cli.py input.mol2 > log.txt 2>&1
+export PYTHONPATH="$HOME/working/acellera/htmd"
+python $HOME/working/acellera/htmd/htmd/newparameterization/cli.py -m input.mol2 -f GAFF2  > log-gaff2.txt 2>&1
+python $HOME/working/acellera/htmd/htmd/newparameterization/cli.py -m input.mol2 -f CGENFF > log-cgen.txt 2>&1
 
