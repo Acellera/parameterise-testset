@@ -16,22 +16,78 @@ Dihedral 1: 4-2-3-6
 Dihedral 2: 2-3-6-8
  Has equivalent dihedrals through symmetry: 
  Dihedral 9-6-3-2
-Traceback (most recent call last):
-  File "/home/mjharvey/working/acellera/htmd/htmd/newparameterization/fftype.py", line 53, in __init__
-    self._prm = AmberPRM( "mol.prepi", "mol.frcmod" )
-  File "/home/mjharvey/working/acellera/htmd/htmd/newparameterization/ff.py", line 407, in __init__
-    self.dihedrals.append( TorsPrm( [y[0], y[1], y[2], y[3]], n=int(math.fabs(int(float(x[4])))), k0= float(x[2]), phi0=float(x[3]), e14=1./1.2 ) )
-ValueError: could not convert string to float: 'Using'
+Net Charge: 0
+Equivalent atom groups:
+ H1
+ O1
+ C1
+ C2
+ H2 H3
+ C3
+ H4
+ H5 H6
+Soft dihedrals:
+ H2 C1 O1 H1
+ H2 C1 C2 C3
+ C1 C2 C3 H5
 
-During handling of the above exception, another exception occurred:
+ == Minimizing ==
 
-Traceback (most recent call last):
-  File "/home/mjharvey/working/acellera/htmd/htmd/newparameterization/cli.py", line 210, in <module>
-    main_parameterize()
-  File "/home/mjharvey/working/acellera/htmd/htmd/newparameterization/cli.py", line 83, in main_parameterize
-    mol = FFMolecule(filename=filename, method=method, netcharge=args.charge, rtf=args.rtf, prm=args.prm)
-  File "/home/mjharvey/working/acellera/htmd/htmd/newparameterization/ffmolecule.py", line 75, in __init__
-    fftype = FFType( self, method=method )
-  File "/home/mjharvey/working/acellera/htmd/htmd/newparameterization/fftype.py", line 58, in __init__
-    raise RuntimeError("FFTyping failed running Antechamber and Parmchk2")
-RuntimeError: FFTyping failed running Antechamber and Parmchk2
+
+
+ == Charge fitting ==
+
+Reusing previously-generated point cloud
+
+Charge Chi^2 score : 0.031929 : GOOD
+QM Dipole   : -0.821600 0.730100 1.343100 ; 1.735500
+MM Dipole   : -0.802141 0.743476 0.306772 ; 1.135912
+Dipole Chi^2 score : 0.359506 : X
+
+
+ == Fitting torsion H2-C1-O1-H1 ==
+
+Duplicating types..
+Creating new type h1_0 from h1 for atom H2
+Creating new type c3_0 from c3 for atom C1
+Creating new type oh_0 from oh for atom O1
+Creating new type ho_0 from ho for atom H1
+ Dih 4-2-1-0 and 4-2-1-0 are equivalent 
+ Dih 4-2-1-0 and 0-1-2-5 are equivalent 
+
+
+Torsion H2-C1-O1-H1 Chi^2 score : 0.109914 : GOOD
+
+ == Fitting torsion H2-C1-C2-C3 ==
+
+Duplicating types..
+Creating new type c2_0 from c2 for atom C2
+Creating new type c2_1 from c2 for atom C3
+ Dih 4-2-3-6 and 4-2-3-6 are equivalent 
+ Dih 4-2-3-6 and 5-2-3-6 are equivalent 
+
+
+Torsion H2-C1-C2-C3 Chi^2 score : 12.698572 : CHECK
+
+ == Fitting torsion C1-C2-C3-H5 ==
+
+Duplicating types..
+Creating new type ha_0 from ha for atom H5
+ Dih 2-3-6-8 and 2-3-6-8 are equivalent 
+ Dih 2-3-6-8 and 9-6-3-2 are equivalent 
+
+
+Torsion C1-C2-C3-H5 Chi^2 score : 1.552480 : GOOD
+ == Diagnostic Energies == 
+
+ Bond     : 0.681771
+ Angle    : 0.891800
+ Dihedral : 11.805222
+ Improper : 0.000000
+ Electro  : 9.863472
+ VdW      : 0.961062
+
+
+ == Output to parameters/GAFF2 ==
+
+Not writing Amber FRCMOD: Can't express 1-4 VdW terms that aren't 0.5x scaled in Amber file format
