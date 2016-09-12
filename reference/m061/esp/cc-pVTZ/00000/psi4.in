@@ -1,0 +1,37 @@
+set {
+	reference rhf
+	basis cc-pvtz
+}
+
+
+set_num_threads( 4 )
+memory 2 gb
+
+molecule MOL {
+0 1
+
+H	 2.848245	 -0.421459	 0.000186
+O	 2.012539	 -0.863422	 0.000222
+C	 1.050606	 0.054895	 0.000135
+C	 -0.317919	 -0.570494	 0.000144
+O	 1.286551	 1.213471	 -0.000040
+C	 -1.454652	 0.441648	 -0.000560
+H	 -0.371381	 -1.223628	 -0.864985
+H	 -0.371688	 -1.222740	 0.865929
+C	 -2.822345	 -0.232168	 0.000063
+H	 -1.359528	 1.084722	 -0.867077
+H	 -1.359409	 1.086014	 0.864983
+H	 -2.954120	 -0.858967	 -0.875745
+H	 -3.615654	 0.505370	 0.000019
+H	 -2.953646	 -0.858341	 0.876394
+
+	symmetry c1
+}
+ee,wfn = energy('scf', return_wfn=True)
+oeprop( wfn, 'DIPOLE', 'QUADRUPOLE', 'MULLIKEN_CHARGES')
+oeprop( wfn, 'GRID_ESP')
+f=open( 'psi4out.xyz', 'w' )
+f.write( "14  " )
+f.write( str(ee) + "\n" )
+f.write( MOL.save_string_xyz() )
+f.close()

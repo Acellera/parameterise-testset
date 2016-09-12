@@ -1,0 +1,3212 @@
+    -----------------------------------------------------------------------
+          Psi4: An Open-Source Ab Initio Electronic Structure Package
+                              Psi4 1.0.54 Driver
+
+                          Git: Rev {master} 8d4cec3 dirty
+
+    J. M. Turney, A. C. Simmonett, R. M. Parrish, E. G. Hohenstein,
+    F. A. Evangelista, J. T. Fermann, B. J. Mintz, L. A. Burns, J. J. Wilke,
+    M. L. Abrams, N. J. Russ, M. L. Leininger, C. L. Janssen, E. T. Seidl,
+    W. D. Allen, H. F. Schaefer, R. A. King, E. F. Valeev, C. D. Sherrill,
+    and T. D. Crawford, WIREs Comput. Mol. Sci. 2, 556-565 (2012)
+    (doi: 10.1002/wcms.93)
+
+                         Additional Contributions by
+    A. E. DePrince, U. Bozkaya, A. Yu. Sokolov, D. G. A. Smith, R. Di Remigio,
+    R. M. Richard, J. F. Gonthier, H. R. McAlexander, M. Saitow, and
+    B. P. Pritchard
+    -----------------------------------------------------------------------
+
+
+    Psi4 started on: Sat Sep 10 15:46:40 2016
+
+    Process ID:  46682
+    PSI4DATADIR: /export131/home/mjharvey/miniconda3/share/psi4
+    Memory level set to 256.000 MB
+
+  ==> Input File <==
+
+--------------------------------------------------------------------------
+set {
+	reference rhf
+	basis cc-pvtz
+}
+
+
+set_num_threads( 4 )
+memory 2 gb
+
+molecule MOL {
+0 1
+
+H	 -2.691051	 0.359216	 0.641196
+O	 -2.041679	 -0.058866	 0.103463
+C	 -0.959304	 0.780994	 -0.094939
+C	 0.354905	 0.037902	 -0.006215
+H	 -0.985899	 1.279578	 -1.057596
+H	 -0.969809	 1.529522	 0.682889
+F	 0.412060	 -0.931028	 -0.902708
+F	 1.359641	 0.856111	 -0.239961
+F	 0.545380	 -0.506387	 1.171682
+
+	symmetry c1
+}
+set optking {
+	frozen_dihedral = ("
+		1 2 3 5
+	")
+}
+
+ee,wfn = optimize('scf', return_wfn=True)
+oeprop( wfn, 'DIPOLE', 'QUADRUPOLE', 'MULLIKEN_CHARGES')
+f=open( 'psi4out.xyz', 'w' )
+f.write( "9  " )
+f.write( str(ee) + "\n" )
+f.write( MOL.save_string_xyz() )
+f.close()
+--------------------------------------------------------------------------
+
+  Memory set to   2.000 GiB by Python script.
+gradient() will perform analytic gradient computation.
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:46:40 2016
+
+
+         ---------------------------------------------------------
+                                   SCF
+            by Justin Turney, Rob Parrish, and Andy Simmonett
+                              RHF Reference
+                        4 Threads,   2000 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.685336275337     0.348872849179     0.628589626300     1.007825032070
+           O         -2.035964275337    -0.069209150821     0.090856626300    15.994914619560
+           C         -0.953589275337     0.770650849179    -0.107545373700    12.000000000000
+           C          0.360619724663     0.027558849179    -0.018821373700    12.000000000000
+           H         -0.980184275337     1.269234849179    -1.070202373700     1.007825032070
+           H         -0.964094275337     1.519178849179     0.670282626300     1.007825032070
+           F          0.417774724663    -0.941371150821    -0.915314373700    18.998403224000
+           F          1.365355724663     0.845767849179    -0.252567373700    18.998403224000
+           F          0.551094724663    -0.516730150821     1.159075626300    18.998403224000
+
+  Running in c1 symmetry.
+
+  Rotational constants: A =      0.18435  B =      0.09506  C =      0.09389 [cm^-1]
+  Rotational constants: A =   5526.73681  B =   2849.80160  C =   2814.70715 [MHz]
+  Nuclear repulsion =  276.816706203757576
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 50
+  Nalpha       = 25
+  Nbeta        = 25
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is SAD.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 0.00e+00
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> Pre-Iterations <==
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A        222     222       0       0       0       0
+   -------------------------------------------------------
+    Total     222     222      25      25      25       0
+   -------------------------------------------------------
+
+  ==> Integral Setup <==
+
+  ==> DFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Algorithm:                Core
+    Integral Cache:           NONE
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+  Minimum eigenvalue in the overlap matrix is 1.0731075212E-03.
+  Using Symmetric Orthogonalization.
+  SCF Guess: Superposition of Atomic Densities via on-the-fly atomic UHF.
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -452.88327969738907   -4.52883e+02   1.95224e-02 
+   @DF-RHF iter   1:  -450.62238239828412    2.26090e+00   3.13925e-03 
+   @DF-RHF iter   2:  -450.79323604202091   -1.70854e-01   1.70339e-03 DIIS
+   @DF-RHF iter   3:  -450.83806189855193   -4.48259e-02   3.57809e-04 DIIS
+   @DF-RHF iter   4:  -450.84248075784012   -4.41886e-03   1.13554e-04 DIIS
+   @DF-RHF iter   5:  -450.84296954522188   -4.88787e-04   2.83352e-05 DIIS
+   @DF-RHF iter   6:  -450.84300853041805   -3.89852e-05   7.45278e-06 DIIS
+   @DF-RHF iter   7:  -450.84301095949968   -2.42908e-06   2.58424e-06 DIIS
+   @DF-RHF iter   8:  -450.84301122119905   -2.61699e-07   9.40769e-07 DIIS
+   @DF-RHF iter   9:  -450.84301125887350   -3.76745e-08   2.27228e-07 DIIS
+   @DF-RHF iter  10:  -450.84301126220953   -3.33603e-09   5.24809e-08 DIIS
+   @DF-RHF iter  11:  -450.84301126236721   -1.57684e-10   1.85021e-08 DIIS
+   @DF-RHF iter  12:  -450.84301126238233   -1.51203e-11   5.83869e-09 DIIS
+
+  ==> Post-Iterations <==
+
+    Orbital Energies (a.u.)
+    -----------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -26.337507     2A    -26.332972     3A    -26.327590  
+       4A    -20.582107     5A    -11.492378     6A    -11.310458  
+       7A     -1.742398     8A     -1.641454     9A     -1.634464  
+      10A     -1.406392    11A     -1.050187    12A     -0.924449  
+      13A     -0.833200    14A     -0.831765    15A     -0.792262  
+      16A     -0.741172    17A     -0.714591    18A     -0.704101  
+      19A     -0.672559    20A     -0.658460    21A     -0.643422  
+      22A     -0.642619    23A     -0.602997    24A     -0.529311  
+      25A     -0.482882  
+
+    Virtual:                                                              
+
+      26A      0.123455    27A      0.176084    28A      0.200975  
+      29A      0.286973    30A      0.305326    31A      0.342887  
+      32A      0.363416    33A      0.408409    34A      0.482905  
+      35A      0.488291    36A      0.513832    37A      0.525280  
+      38A      0.535468    39A      0.571528    40A      0.588668  
+      41A      0.611578    42A      0.630642    43A      0.647157  
+      44A      0.679453    45A      0.713750    46A      0.766317  
+      47A      0.806806    48A      0.812482    49A      0.860546  
+      50A      0.892450    51A      0.921212    52A      0.940256  
+      53A      0.996432    54A      1.033001    55A      1.052593  
+      56A      1.089053    57A      1.103436    58A      1.121692  
+      59A      1.134991    60A      1.147913    61A      1.162546  
+      62A      1.174412    63A      1.221861    64A      1.285660  
+      65A      1.320014    66A      1.335069    67A      1.362285  
+      68A      1.392523    69A      1.409620    70A      1.473296  
+      71A      1.482740    72A      1.528471    73A      1.544200  
+      74A      1.612862    75A      1.722906    76A      1.751753  
+      77A      1.995028    78A      2.012942    79A      2.052973  
+      80A      2.115218    81A      2.169163    82A      2.203572  
+      83A      2.218559    84A      2.242477    85A      2.254966  
+      86A      2.272496    87A      2.277064    88A      2.353801  
+      89A      2.368702    90A      2.390187    91A      2.442173  
+      92A      2.470776    93A      2.505549    94A      2.599508  
+      95A      2.651201    96A      2.696453    97A      2.721070  
+      98A      2.777732    99A      2.827874   100A      2.838453  
+     101A      2.857814   102A      2.872549   103A      3.004014  
+     104A      3.053564   105A      3.147721   106A      3.195980  
+     107A      3.224629   108A      3.247383   109A      3.267386  
+     110A      3.287954   111A      3.313867   112A      3.348608  
+     113A      3.358946   114A      3.409739   115A      3.430383  
+     116A      3.449605   117A      3.507893   118A      3.523875  
+     119A      3.604965   120A      3.641247   121A      3.656241  
+     122A      3.697209   123A      3.699983   124A      3.742415  
+     125A      3.757385   126A      3.820674   127A      3.854605  
+     128A      3.903221   129A      3.913909   130A      3.945235  
+     131A      3.955190   132A      4.000618   133A      4.077153  
+     134A      4.119189   135A      4.146735   136A      4.150004  
+     137A      4.198416   138A      4.264104   139A      4.299323  
+     140A      4.343299   141A      4.377788   142A      4.461615  
+     143A      4.496341   144A      4.519073   145A      4.562684  
+     146A      4.589156   147A      4.665549   148A      4.779553  
+     149A      4.912430   150A      5.066572   151A      5.112372  
+     152A      5.164308   153A      5.241529   154A      5.273306  
+     155A      5.337276   156A      5.378679   157A      5.385812  
+     158A      5.439523   159A      5.487236   160A      5.512418  
+     161A      5.550685   162A      5.610228   163A      5.692453  
+     164A      5.818407   165A      6.011837   166A      6.073881  
+     167A      6.111939   168A      6.264339   169A      6.448982  
+     170A      6.562439   171A      6.586427   172A      6.665766  
+     173A      7.022645   174A      7.127010   175A      7.211071  
+     176A      7.239552   177A      7.319323   178A      7.349402  
+     179A      7.360689   180A      7.361820   181A      7.367313  
+     182A      7.369743   183A      7.372273   184A      7.378036  
+     185A      7.383194   186A      7.394885   187A      7.492021  
+     188A      7.521614   189A      7.530356   190A      7.549041  
+     191A      7.606155   192A      7.635408   193A      7.638963  
+     194A      7.676041   195A      7.880363   196A      7.951178  
+     197A      7.969446   198A      7.981247   199A      8.101308  
+     200A      8.170453   201A      8.181467   202A      8.906436  
+     203A      8.909923   204A      8.936612   205A      9.032732  
+     206A      9.038452   207A      9.087612   208A      9.206621  
+     209A      9.326827   210A      9.409013   211A      9.411057  
+     212A      9.526919   213A      9.683230   214A      9.684887  
+     215A      9.742309   216A      9.745649   217A     11.170274  
+     218A     12.212891   219A     12.412581   220A     12.654361  
+     221A     13.117510   222A     13.802827  
+
+    Final Occupation by Irrep:
+              A 
+    DOCC [    25 ]
+
+  Energy converged.
+
+  @DF-RHF Final Energy:  -450.84301126238233
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =            276.8167062037575761
+    One-Electron Energy =               -1176.0560419760629429
+    Two-Electron Energy =                 448.3963245099231472
+    DFT Exchange-Correlation Energy =       0.0000000000000000
+    Empirical Dispersion Energy =           0.0000000000000000
+    PCM Polarization Energy =               0.0000000000000000
+    EFP Energy =                            0.0000000000000000
+    Total Energy =                       -450.8430112623822197
+
+
+  Saving occupied orbitals to File 180.
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:46:44 2016
+Module time:
+	user time   =      12.37 seconds =       0.21 minutes
+	system time =       0.62 seconds =       0.01 minutes
+	total time  =          4 seconds =       0.07 minutes
+Total time:
+	user time   =      12.37 seconds =       0.21 minutes
+	system time =       0.62 seconds =       0.01 minutes
+	total time  =          4 seconds =       0.07 minutes
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 Bohr
+
+Properties computed using the SCF density matrix
+
+  Nuclear Dipole Moment: (a.u.)
+     X:    -6.5519      Y:     3.5184      Z:     0.2231
+
+  Electronic Dipole Moment: (a.u.)
+     X:     5.7658      Y:    -2.5123      Z:     0.0536
+
+  Dipole Moment: (a.u.)
+     X:    -0.7861      Y:     1.0061      Z:     0.2767     Total:     1.3065
+
+  Dipole Moment: (Debye)
+     X:    -1.9982      Y:     2.5573      Z:     0.7034     Total:     3.3207
+
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:46:44 2016
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.685336275337     0.348872849179     0.628589626300     1.007825032070
+           O         -2.035964275337    -0.069209150821     0.090856626300    15.994914619560
+           C         -0.953589275337     0.770650849179    -0.107545373700    12.000000000000
+           C          0.360619724663     0.027558849179    -0.018821373700    12.000000000000
+           H         -0.980184275337     1.269234849179    -1.070202373700     1.007825032070
+           H         -0.964094275337     1.519178849179     0.670282626300     1.007825032070
+           F          0.417774724663    -0.941371150821    -0.915314373700    18.998403224000
+           F          1.365355724663     0.845767849179    -0.252567373700    18.998403224000
+           F          0.551094724663    -0.516730150821     1.159075626300    18.998403224000
+
+  Nuclear repulsion =  276.816706203757576
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Schwarz Cutoff:          0E+00
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.003383233709     0.001664881984     0.002101545356
+       2        0.001052888123     0.008551748140     0.004657866187
+       3        0.004248852564    -0.011669844260    -0.008704168522
+       4        0.005091195871     0.010977940165     0.005932807367
+       5        0.001012522694     0.002383992720     0.000500960294
+       6       -0.008929502060    -0.005748916420     0.001012475387
+       7       -0.001076199265    -0.004112006066    -0.003306428857
+       8        0.001991988489    -0.001205028661    -0.000534849051
+       9       -0.000008512708    -0.000842767600    -0.001660208160
+
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:46:47 2016
+Module time:
+	user time   =      11.37 seconds =       0.19 minutes
+	system time =       0.30 seconds =       0.00 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =      23.83 seconds =       0.40 minutes
+	system time =       0.93 seconds =       0.02 minutes
+	total time  =          7 seconds =       0.12 minutes
+
+			-----------------------------------------
+			 OPTKING 2.0: for geometry optimizations 
+			  - R.A. King,  Bethel University        
+			-----------------------------------------
+
+	Internal coordinates to be generated automatically.
+	Detected frag 1 with atoms:  1 2 3 4 5 6 7 8 9
+	---Fragment 1 Bond Connectivity---
+	 1 : 2
+	 2 : 1 3
+	 3 : 2 4 5 6
+	 4 : 3 7 8 9
+	 5 : 3
+	 6 : 3
+	 7 : 4
+	 8 : 4
+	 9 : 4
+
+	Assuming in current code that numbering for constraints corresponds to unified fragment.
+	Frozen dihedral atom list: 
+	     1     2     3     5
+	---Fragment 1 Geometry and Gradient---
+	 H          -5.0745501351        0.6592741401        1.1878622437
+	 O          -3.8474148967       -0.1307863409        0.1716941411
+	 C          -1.8020225736        1.4563190490       -0.2032313032
+	 C           0.6814725177        0.0520786775       -0.0355672417
+	 H          -1.8522798401        2.3985062633       -2.0223893931
+	 H          -1.8218741467        2.8708319718        1.2666505953
+	 F           0.7894798149       -1.7789336645       -1.7296934918
+	 F           2.5801483936        1.5982696069       -0.4772831664
+	 F           1.0414181029       -0.9764784697        2.1903355010
+	            -0.0033832337        0.0016648820        0.0021015454
+	             0.0010528881        0.0085517481        0.0046578662
+	             0.0042488526       -0.0116698443       -0.0087041685
+	             0.0050911959        0.0109779402        0.0059328074
+	             0.0010125227        0.0023839927        0.0005009603
+	            -0.0089295021       -0.0057489164        0.0010124754
+	            -0.0010761993       -0.0041120061       -0.0033064289
+	             0.0019919885       -0.0012050287       -0.0005348491
+	            -0.0000085127       -0.0008427676       -0.0016602082
+
+	Previous optimization step data not found.  Starting new optimization.
+
+	---Fragment 1 Intrafragment Coordinates---
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.778385	       0.941081
+	 R(2,3)           =         2.615932	       1.384292
+	 R(3,4)           =         2.857928	       1.512350
+	 R(3,5)           =         2.049287	       1.084436
+	 R(3,6)           =         2.040047	       1.079547
+	 R(4,7)           =         2.496865	       1.321284
+	 R(4,8)           =         2.488130	       1.316662
+	 R(4,9)           =         2.478333	       1.311477
+	 B(1,2,3)         =         1.930388	     110.603105
+	 B(2,3,4)         =         1.952976	     111.897290
+	 B(2,3,5)         =         1.968167	     112.767666
+	 B(2,3,6)         =         1.885778	     108.047109
+	 B(3,4,7)         =         1.937032	     110.983742
+	 B(3,4,8)         =         1.925555	     110.326169
+	 B(3,4,9)         =         1.963642	     112.508420
+	 B(4,3,5)         =         1.874749	     107.415192
+	 B(4,3,6)         =         1.882703	     107.870956
+	 B(5,3,6)         =         1.897134	     108.697761
+	 B(7,4,8)         =         1.877843	     107.592463
+	 B(7,4,9)         =         1.874196	     107.383500
+	 B(8,4,9)         =         1.882333	     107.849764
+	 D(1,2,3,4)       =         2.421944	     138.767158
+	*D(1,2,3,5)       =        -1.745329	     -99.999981
+	 D(1,2,3,6)       =         0.351845	      20.159227
+	 D(2,3,4,7)       =         1.028115	      58.906630
+	 D(2,3,4,8)       =         3.107886	     178.068775
+	 D(2,3,4,9)       =        -1.072417	     -61.444986
+	 D(5,3,4,7)       =        -1.140937	     -65.370894
+	 D(5,3,4,8)       =         0.938834	      53.791250
+	 D(5,3,4,9)       =         3.041716	     174.277489
+	 D(6,3,4,7)       =         3.100037	     177.619023
+	 D(6,3,4,8)       =        -1.103377	     -63.218833
+	 D(6,3,4,9)       =         0.999505	      57.267407
+
+	Current energy   :      -450.8430112624
+
+	Generating empirical Hessian (Schlegel '84) for each fragment.
+	Taking RFO optimization step.
+	Going to follow RFO solution 1.
+	Using RFO vector 1.
+	Norm of target step-size    0.20635
+	Projected energy change by RFO approximation:        -0.0043798088
+
+	Back-transformation to cartesian coordinates...
+	Could not converge backtransformation.
+	Using first guess instead.
+
+	Back-transformation to cartesian coordinates to adjust frozen coordinates...
+	Successfully converged to displaced geometry.
+
+	--- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	 ---------------------------------------------------------------------------
+	   Coordinate                Previous        Force       Change         New 
+	   ----------                --------       ------       ------       ------
+	    1 R(1,2)          =      0.941081    -0.035220     0.052570     0.993651
+	    2 R(2,3)          =      1.384292     0.028075     0.026446     1.410738
+	    3 R(3,4)          =      1.512350    -0.023649     0.064108     1.576458
+	    4 R(3,5)          =      1.084436    -0.005162     0.066920     1.151357
+	    5 R(3,6)          =      1.079547     0.026115     0.055106     1.134652
+	    6 R(4,7)          =      1.321284    -0.042943     0.059800     1.381084
+	    7 R(4,8)          =      1.316662    -0.007136     0.023046     1.339708
+	    8 R(4,9)          =      1.311477     0.009413     0.079236     1.390714
+	    9 B(1,2,3)        =    110.603105    -0.000062    -0.924349   109.678756
+	   10 B(2,3,4)        =    111.897290    -0.000924    -5.486088   106.411202
+	   11 B(2,3,5)        =    112.767666     0.000008     0.286560   113.054226
+	   12 B(2,3,6)        =    108.047109     0.000888     4.249183   112.296292
+	   13 B(3,4,7)        =    110.983742     0.000237     3.630610   114.614352
+	   14 B(3,4,8)        =    110.326169    -0.000321    -3.289291   107.036878
+	   15 B(3,4,9)        =    112.508420    -0.000082    -0.728251   111.780168
+	   16 B(4,3,5)        =    107.415192     0.000419    -0.645610   106.769582
+	   17 B(4,3,6)        =    107.870956    -0.000226     1.786777   109.657733
+	   18 B(5,3,6)        =    108.697761    -0.000176    -0.235941   108.461820
+	   19 B(7,4,8)        =    107.592463     0.000045    -1.854175   105.738288
+	   20 B(7,4,9)        =    107.383500     0.000028     0.084277   107.467778
+	   21 B(8,4,9)        =    107.849764     0.000105     2.152345   110.002109
+	   22 D(1,2,3,4)      =    138.767158     0.000029     4.345798   143.112957
+	   23 *D(1,2,3,5)     =    -99.999981    -0.000000     0.000000   -99.999981
+	   24 D(1,2,3,6)      =     20.159227     0.000088     2.967031    23.126258
+	   25 D(2,3,4,7)      =     58.906630    -0.000041     0.181565    59.088195
+	   26 D(2,3,4,8)      =    178.068775    -0.000041    -2.080365   175.988410
+	   27 D(2,3,4,9)      =    -61.444986    -0.000075    -2.055978   -63.500964
+	   28 D(5,3,4,7)      =    -65.370894     0.000028     3.453675   -61.917218
+	   29 D(5,3,4,8)      =     53.791250     0.000028     1.191746    54.982996
+	   30 D(5,3,4,9)      =    174.277489    -0.000006     1.216133   175.493622
+	   31 D(6,3,4,7)      =    177.619023     0.000052     3.150780   180.769803
+	   32 D(6,3,4,8)      =    -63.218833     0.000051     0.888851   -62.329982
+	   33 D(6,3,4,9)      =     57.267407     0.000018     0.913237    58.180644
+	 ---------------------------------------------------------------------------
+	Successfully symmetrized geometry.
+
+  ==> Convergence Check <==
+
+  Measures of convergence in internal coordinates in au.
+  Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+  --------------------------------------------------------------------------------------------- ~
+   Step     Total Energy     Delta E     MAX Force     RMS Force      MAX Disp      RMS Disp    ~
+  --------------------------------------------------------------------------------------------- ~
+    Convergence Criteria    1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o  ~
+  --------------------------------------------------------------------------------------------- ~
+      1    -450.84301126   -4.51e+02      1.21e-02      3.97e-03 o    1.50e-01      6.42e-02 o  ~
+  ---------------------------------------------------------------------------------------------
+
+	Writing optimization data to binary file.
+	Structure for next step:
+	Cartesian Geometry (in Angstrom)
+	    H    -2.5967128955  -0.1184487969   0.8991956194
+	    O    -1.9444107281  -0.2825944476   0.1678263865
+	    C    -1.0182140975   0.7799479085   0.1099949719
+	    C     0.3744160251   0.1375162451  -0.2548093000
+	    H    -1.2588993613   1.5433287104  -0.7176174937
+	    H    -0.9362797272   1.3337942118   1.0968978499
+	    F     0.3944449179  -0.5508228570  -1.4519652937
+	    F     1.2453964584   1.1450083888  -0.4003065658
+	    F     0.8159359301  -0.7337757205   0.7351374623
+			--------------------------
+			 OPTKING Finished Execution 
+			--------------------------
+
+    Structure for next step:
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -2.626710799462    -0.184617457653     1.089056728067
+    O           -1.974408632059    -0.348763108334     0.357687495099
+    C           -1.048212001533     0.713779247708     0.299856080533
+    C            0.344418121060     0.071347584391    -0.064948191419
+    H           -1.288897265264     1.477160049620    -0.527756385092
+    H           -0.966277631191     1.267625551086     1.286758958492
+    F            0.364447013918    -0.616991517775    -1.262104185079
+    F            1.215398554371     1.078839728022    -0.210445457163
+    F            0.785938026137    -0.799944381282     0.924998570919
+
+gradient() will perform analytic gradient computation.
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:46:48 2016
+
+
+         ---------------------------------------------------------
+                                   SCF
+            by Justin Turney, Rob Parrish, and Andy Simmonett
+                              RHF Reference
+                        4 Threads,   2000 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.626710799462    -0.184617457653     1.089056728067     1.007825032070
+           O         -1.974408632059    -0.348763108334     0.357687495099    15.994914619560
+           C         -1.048212001533     0.713779247708     0.299856080533    12.000000000000
+           C          0.344418121060     0.071347584391    -0.064948191419    12.000000000000
+           H         -1.288897265264     1.477160049620    -0.527756385092     1.007825032070
+           H         -0.966277631191     1.267625551086     1.286758958492     1.007825032070
+           F          0.364447013918    -0.616991517775    -1.262104185079    18.998403224000
+           F          1.215398554371     1.078839728022    -0.210445457163    18.998403224000
+           F          0.785938026137    -0.799944381282     0.924998570919    18.998403224000
+
+  Running in c1 symmetry.
+
+  Rotational constants: A =      0.16546  B =      0.09191  C =      0.09028 [cm^-1]
+  Rotational constants: A =   4960.49452  B =   2755.44815  C =   2706.53907 [MHz]
+  Nuclear repulsion =  267.683136649583332
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 50
+  Nalpha       = 25
+  Nbeta        = 25
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 0.00e+00
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> Pre-Iterations <==
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A        222     222       0       0       0       0
+   -------------------------------------------------------
+    Total     222     222      25      25      25       0
+   -------------------------------------------------------
+
+  ==> Integral Setup <==
+
+  ==> DFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Algorithm:                Core
+    Integral Cache:           NONE
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+  Minimum eigenvalue in the overlap matrix is 1.2741243698E-03.
+  Using Symmetric Orthogonalization.
+  SCF Guess: Reading in previously saved MOs, projecting if necessary.
+
+  Using orbitals from previous SCF, no projection.
+  Recomputing DOCC and SOCC from number of alpha and beta electrons from previous calculation.
+              A 
+    DOCC [    25 ]
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -450.08517526109637   -4.50085e+02   3.79221e-03 
+   @DF-RHF iter   1:  -450.78608462624987   -7.00909e-01   1.12465e-03 
+   @DF-RHF iter   2:  -450.81556003882105   -2.94754e-02   4.98162e-04 DIIS
+   @DF-RHF iter   3:  -450.82047709001307   -4.91705e-03   1.36514e-04 DIIS
+   @DF-RHF iter   4:  -450.82120964366408   -7.32554e-04   5.74552e-05 DIIS
+   @DF-RHF iter   5:  -450.82130268107863   -9.30374e-05   1.39264e-05 DIIS
+   @DF-RHF iter   6:  -450.82131510455173   -1.24235e-05   3.90068e-06 DIIS
+   @DF-RHF iter   7:  -450.82131606684896   -9.62297e-07   1.16231e-06 DIIS
+   @DF-RHF iter   8:  -450.82131611976769   -5.29187e-08   3.32462e-07 DIIS
+   @DF-RHF iter   9:  -450.82131612363088   -3.86319e-09   1.04184e-07 DIIS
+   @DF-RHF iter  10:  -450.82131612407085   -4.39968e-10   3.26698e-08 DIIS
+   @DF-RHF iter  11:  -450.82131612412508   -5.42286e-11   9.72132e-09 DIIS
+
+  ==> Post-Iterations <==
+
+    Orbital Energies (a.u.)
+    -----------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -26.341931     2A    -26.329084     3A    -26.328476  
+       4A    -20.592766     5A    -11.513211     6A    -11.340858  
+       7A     -1.708594     8A     -1.625647     9A     -1.610746  
+      10A     -1.389859    11A     -1.029383    12A     -0.906103  
+      13A     -0.809328    14A     -0.805537    15A     -0.771701  
+      16A     -0.723706    17A     -0.703061    18A     -0.690231  
+      19A     -0.661330    20A     -0.651884    21A     -0.641589  
+      22A     -0.633860    23A     -0.595309    24A     -0.533085  
+      25A     -0.480878  
+
+    Virtual:                                                              
+
+      26A      0.116957    27A      0.165698    28A      0.191671  
+      29A      0.263797    30A      0.301092    31A      0.314933  
+      32A      0.343070    33A      0.386299    34A      0.464387  
+      35A      0.478701    36A      0.491809    37A      0.500896  
+      38A      0.509913    39A      0.534270    40A      0.559999  
+      41A      0.575809    42A      0.606020    43A      0.627820  
+      44A      0.692026    45A      0.708607    46A      0.766164  
+      47A      0.797568    48A      0.810100    49A      0.844319  
+      50A      0.880083    51A      0.919127    52A      0.930818  
+      53A      0.994624    54A      1.028800    55A      1.041225  
+      56A      1.066374    57A      1.090486    58A      1.113772  
+      59A      1.120902    60A      1.144979    61A      1.152792  
+      62A      1.174482    63A      1.186897    64A      1.256028  
+      65A      1.293475    66A      1.314655    67A      1.342836  
+      68A      1.378258    69A      1.403029    70A      1.436256  
+      71A      1.479525    72A      1.496732    73A      1.519909  
+      74A      1.546942    75A      1.649231    76A      1.754819  
+      77A      1.978132    78A      1.995992    79A      2.031591  
+      80A      2.095858    81A      2.148322    82A      2.193760  
+      83A      2.211654    84A      2.222398    85A      2.239894  
+      86A      2.253832    87A      2.260587    88A      2.309856  
+      89A      2.344737    90A      2.346033    91A      2.393744  
+      92A      2.410661    93A      2.467728    94A      2.584965  
+      95A      2.616935    96A      2.640716    97A      2.674682  
+      98A      2.704584    99A      2.780638   100A      2.797004  
+     101A      2.829383   102A      2.832444   103A      2.939114  
+     104A      3.001135   105A      3.110864   106A      3.152559  
+     107A      3.205062   108A      3.219435   109A      3.231960  
+     110A      3.248410   111A      3.287931   112A      3.326693  
+     113A      3.354096   114A      3.390303   115A      3.411864  
+     116A      3.434141   117A      3.444847   118A      3.465576  
+     119A      3.510206   120A      3.569886   121A      3.588871  
+     122A      3.638200   123A      3.655429   124A      3.679714  
+     125A      3.707594   126A      3.732969   127A      3.792845  
+     128A      3.835381   129A      3.853450   130A      3.888099  
+     131A      3.902252   132A      3.930900   133A      3.972393  
+     134A      3.992766   135A      4.070499   136A      4.081384  
+     137A      4.142557   138A      4.171943   139A      4.182100  
+     140A      4.220523   141A      4.276274   142A      4.366789  
+     143A      4.395238   144A      4.443605   145A      4.463733  
+     146A      4.490005   147A      4.539716   148A      4.693623  
+     149A      4.796388   150A      4.908085   151A      4.953793  
+     152A      5.001160   153A      5.144416   154A      5.183011  
+     155A      5.196267   156A      5.297725   157A      5.319971  
+     158A      5.327351   159A      5.362834   160A      5.400513  
+     161A      5.432773   162A      5.467782   163A      5.515162  
+     164A      5.730877   165A      5.864872   166A      5.948843  
+     167A      6.025394   168A      6.167995   169A      6.340158  
+     170A      6.456716   171A      6.492915   172A      6.562904  
+     173A      6.862158   174A      7.014374   175A      7.072311  
+     176A      7.217159   177A      7.329987   178A      7.335786  
+     179A      7.356158   180A      7.364551   181A      7.369375  
+     182A      7.377599   183A      7.378555   184A      7.379667  
+     185A      7.383493   186A      7.384455   187A      7.423559  
+     188A      7.460505   189A      7.472006   190A      7.478368  
+     191A      7.486942   192A      7.558034   193A      7.578859  
+     194A      7.628177   195A      7.743345   196A      7.816052  
+     197A      7.830282   198A      7.848765   199A      7.976269  
+     200A      8.022216   201A      8.041577   202A      8.888199  
+     203A      8.891209   204A      8.906441   205A      8.906969  
+     206A      8.988841   207A      8.999180   208A      9.053143  
+     209A      9.266973   210A      9.332793   211A      9.342618  
+     212A      9.437621   213A      9.616919   214A      9.667025  
+     215A      9.680689   216A      9.688200   217A     10.732124  
+     218A     11.786349   219A     12.026474   220A     12.242525  
+     221A     12.492293   222A     12.746456  
+
+    Final Occupation by Irrep:
+              A 
+    DOCC [    25 ]
+
+  Energy converged.
+
+  @DF-RHF Final Energy:  -450.82131612412508
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =            267.6831366495833322
+    One-Electron Energy =               -1158.1725893246139094
+    Two-Electron Energy =                 439.6681365509053876
+    DFT Exchange-Correlation Energy =       0.0000000000000000
+    Empirical Dispersion Energy =           0.0000000000000000
+    PCM Polarization Energy =               0.0000000000000000
+    EFP Energy =                            0.0000000000000000
+    Total Energy =                       -450.8213161241252465
+
+
+  Saving occupied orbitals to File 180.
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:46:51 2016
+Module time:
+	user time   =      10.07 seconds =       0.17 minutes
+	system time =       0.44 seconds =       0.01 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =      35.31 seconds =       0.59 minutes
+	system time =       1.42 seconds =       0.02 minutes
+	total time  =         11 seconds =       0.18 minutes
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 Bohr
+
+Properties computed using the SCF density matrix
+
+  Nuclear Dipole Moment: (a.u.)
+     X:    -6.8179      Y:     2.7173      Z:     2.2508
+
+  Electronic Dipole Moment: (a.u.)
+     X:     5.8688      Y:    -1.8123      Z:    -1.5540
+
+  Dipole Moment: (a.u.)
+     X:    -0.9491      Y:     0.9050      Z:     0.6968     Total:     1.4850
+
+  Dipole Moment: (Debye)
+     X:    -2.4123      Y:     2.3003      Z:     1.7710     Total:     3.7745
+
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:46:51 2016
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.626710799462    -0.184617457653     1.089056728067     1.007825032070
+           O         -1.974408632059    -0.348763108334     0.357687495099    15.994914619560
+           C         -1.048212001533     0.713779247708     0.299856080533    12.000000000000
+           C          0.344418121060     0.071347584391    -0.064948191419    12.000000000000
+           H         -1.288897265264     1.477160049620    -0.527756385092     1.007825032070
+           H         -0.966277631191     1.267625551086     1.286758958492     1.007825032070
+           F          0.364447013918    -0.616991517775    -1.262104185079    18.998403224000
+           F          1.215398554371     1.078839728022    -0.210445457163    18.998403224000
+           F          0.785938026137    -0.799944381282     0.924998570919    18.998403224000
+
+  Nuclear repulsion =  267.683136649583332
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Schwarz Cutoff:          0E+00
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.034965185323     0.009236114774     0.040188158446
+       2        0.025980268727    -0.028157935177    -0.038590976122
+       3       -0.007632919157     0.002917656167     0.011629254837
+       4       -0.007349709851     0.013683870372     0.002952365538
+       5       -0.007154855360     0.028392018847    -0.027923998948
+       6       -0.003879796320     0.017488544989     0.029193051664
+       7        0.006434543122    -0.027886345862    -0.058899744345
+       8        0.010835054061     0.029000027624    -0.009702236430
+       9        0.017732600102    -0.044673951740     0.051154125363
+
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:46:54 2016
+Module time:
+	user time   =      10.42 seconds =       0.17 minutes
+	system time =       0.28 seconds =       0.00 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =      45.79 seconds =       0.76 minutes
+	system time =       1.70 seconds =       0.03 minutes
+	total time  =         14 seconds =       0.23 minutes
+
+			-----------------------------------------
+			 OPTKING 2.0: for geometry optimizations 
+			  - R.A. King,  Bethel University        
+			-----------------------------------------
+
+	Previous internal coordinate definitions found.
+	---Fragment 1 Geometry and Gradient---
+	 H          -4.9637640413       -0.3488764343        2.0580189592
+	 O          -3.7310915890       -0.6590667600        0.6759314069
+	 C          -1.9808336121        1.3488472975        0.5666458715
+	 C           0.6508559240        0.1348273947       -0.1227342946
+	 H          -2.4356628448        2.7914279482       -0.9973150327
+	 H          -1.8260000913        2.3954651306        2.4316220306
+	 F           0.6887050463       -1.1659449949       -2.3850312610
+	 F           2.2967704101        2.0387116272       -0.3976842799
+	 F           1.4852076268       -1.5116758022        1.7479939723
+	            -0.0349651853        0.0092361148        0.0401881584
+	             0.0259802687       -0.0281579352       -0.0385909761
+	            -0.0076329192        0.0029176562        0.0116292548
+	            -0.0073497099        0.0136838704        0.0029523655
+	            -0.0071548554        0.0283920188       -0.0279239989
+	            -0.0038797963        0.0174885450        0.0291930517
+	             0.0064345431       -0.0278863459       -0.0588997443
+	             0.0108350541        0.0290000276       -0.0097022364
+	             0.0177326001       -0.0446739517        0.0511541254
+
+	---Fragment 1 Intrafragment Coordinates---
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.877729	       0.993651
+	 R(2,3)           =         2.665908	       1.410738
+	 R(3,4)           =         2.979074	       1.576458
+	 R(3,5)           =         2.175749	       1.151357
+	 R(3,6)           =         2.144182	       1.134652
+	 R(4,7)           =         2.609871	       1.381084
+	 R(4,8)           =         2.531681	       1.339708
+	 R(4,9)           =         2.628068	       1.390714
+	 B(1,2,3)         =         1.914255	     109.678756
+	 B(2,3,4)         =         1.857226	     106.411202
+	 B(2,3,5)         =         1.973168	     113.054226
+	 B(2,3,6)         =         1.959940	     112.296292
+	 B(3,4,7)         =         2.000398	     114.614352
+	 B(3,4,8)         =         1.868146	     107.036878
+	 B(3,4,9)         =         1.950932	     111.780168
+	 B(4,3,5)         =         1.863481	     106.769582
+	 B(4,3,6)         =         1.913888	     109.657733
+	 B(5,3,6)         =         1.893016	     108.461820
+	 B(7,4,8)         =         1.845481	     105.738288
+	 B(7,4,9)         =         1.875667	     107.467778
+	 B(8,4,9)         =         1.919899	     110.002109
+	 D(1,2,3,4)       =         2.497792	     143.112957
+	*D(1,2,3,5)       =        -1.745329	     -99.999981
+	 D(1,2,3,6)       =         0.403629	      23.126258
+	 D(2,3,4,7)       =         1.031284	      59.088195
+	 D(2,3,4,8)       =         3.071577	     175.988410
+	 D(2,3,4,9)       =        -1.108301	     -63.500964
+	 D(5,3,4,7)       =        -1.080659	     -61.917218
+	 D(5,3,4,8)       =         0.959634	      54.982996
+	 D(5,3,4,9)       =         3.062942	     175.493622
+	 D(6,3,4,7)       =        -3.128157	    -179.230197
+	 D(6,3,4,8)       =        -1.087863	     -62.329982
+	 D(6,3,4,9)       =         1.015444	      58.180644
+
+	Current energy   :      -450.8213161241
+
+	Energy change for the previous step:
+		Projected    :        -0.0043798088
+		Actual       :         0.0216951383
+
+	Performing BFGS update.
+	Previous computed or guess Hessian on step 1.
+	Steps to be used in Hessian update: 1
+	Taking RFO optimization step.
+	Going to follow RFO solution 1.
+	Using RFO vector 1.
+	Norm of target step-size    0.30456
+	Projected energy change by RFO approximation:        -0.0365263466
+
+	Back-transformation to cartesian coordinates...
+	Could not converge backtransformation.
+	Using first guess instead.
+
+	Back-transformation to cartesian coordinates to adjust frozen coordinates...
+	Successfully converged to displaced geometry.
+
+	--- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	 ---------------------------------------------------------------------------
+	   Coordinate                Previous        Force       Change         New 
+	   ----------                --------       ------       ------       ------
+	    1 R(1,2)          =      0.993651    -0.445381    -0.052774     0.940877
+	    2 R(2,3)          =      1.410738    -0.166554    -0.020938     1.389799
+	    3 R(3,4)          =      1.576458    -0.329198    -0.061968     1.514490
+	    4 R(3,5)          =      1.151357    -0.332783    -0.061442     1.089914
+	    5 R(3,6)          =      1.134652    -0.277216    -0.045601     1.089052
+	    6 R(4,7)          =      1.381084    -0.535910    -0.059509     1.321575
+	    7 R(4,8)          =      1.339708    -0.246392    -0.022417     1.317290
+	    8 R(4,9)          =      1.390714    -0.576967    -0.072666     1.318048
+	    9 B(1,2,3)        =    109.678756     0.000085     0.487350   110.166106
+	   10 B(2,3,4)        =    106.411202     0.000888     1.991727   108.402929
+	   11 B(2,3,5)        =    113.054226    -0.000369    -1.568421   111.485805
+	   12 B(2,3,6)        =    112.296292     0.000066     1.459096   113.755387
+	   13 B(3,4,7)        =    114.614352    -0.000780    -2.482889   112.131463
+	   14 B(3,4,8)        =    107.036878     0.001322     2.115815   109.152693
+	   15 B(3,4,9)        =    111.780168     0.000337     0.566088   112.346256
+	   16 B(4,3,5)        =    106.769582    -0.000126     0.097789   106.867371
+	   17 B(4,3,6)        =    109.657733    -0.000766    -2.456264   107.201469
+	   18 B(5,3,6)        =    108.461820     0.000270     0.352309   108.814130
+	   19 B(7,4,8)        =    105.738288     0.000112     1.575470   107.313758
+	   20 B(7,4,9)        =    107.467778    -0.000086     0.364278   107.832056
+	   21 B(8,4,9)        =    110.002109    -0.000961    -2.146810   107.855299
+	   22 D(1,2,3,4)      =    143.112957    -0.000046    -0.474022   142.638934
+	   23 *D(1,2,3,5)     =    -99.999981     0.000000    -0.000000   -99.999981
+	   24 D(1,2,3,6)      =     23.126258     0.000029     0.371903    23.498160
+	   25 D(2,3,4,7)      =     59.088195    -0.000093    -1.628713    57.459482
+	   26 D(2,3,4,8)      =    175.988410     0.000039     0.244758   176.233168
+	   27 D(2,3,4,9)      =    -63.500964     0.000009    -0.681480   -64.182444
+	   28 D(5,3,4,7)      =    -61.917218    -0.000087    -0.904439   -62.821658
+	   29 D(5,3,4,8)      =     54.982996     0.000045     0.969031    55.952028
+	   30 D(5,3,4,9)      =    175.493622     0.000015     0.042794   175.536416
+	   31 D(6,3,4,7)      =   -179.230197    -0.000052    -0.119872  -179.350068
+	   32 D(6,3,4,8)      =    -62.329982     0.000080     1.753599   -60.576383
+	   33 D(6,3,4,9)      =     58.180644     0.000050     0.827362    59.008006
+	 ---------------------------------------------------------------------------
+	Successfully symmetrized geometry.
+
+  ==> Convergence Check <==
+
+  Measures of convergence in internal coordinates in au.
+  Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+  ---------------------------------------------------------------------------------------------
+   Step     Total Energy     Delta E     MAX Force     RMS Force      MAX Disp      RMS Disp   
+  ---------------------------------------------------------------------------------------------
+    Convergence Criteria    1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+  ---------------------------------------------------------------------------------------------
+      2    -450.82131612    2.17e-02      7.00e-02      2.38e-02 o    1.37e-01      5.29e-02 o  ~
+  ---------------------------------------------------------------------------------------------
+
+	Writing optimization data to binary file.
+	Structure for next step:
+	Cartesian Geometry (in Angstrom)
+	    H    -2.5853015998  -0.2058358149   1.0156984452
+	    O    -1.9579165622  -0.3559534593   0.3307882127
+	    C    -1.0366122116   0.6837413309   0.2886509232
+	    C     0.3240261082   0.1039545231  -0.0372166074
+	    H    -1.2743195714   1.3959938647  -0.5013519073
+	    H    -0.9399798577   1.2227002290   1.2300428785
+	    F     0.3204214793  -0.5641745555  -1.1774586877
+	    F     1.1937654637   1.0855569406  -0.1607637530
+	    F     0.7616121374  -0.7075473628   0.9047141100
+			--------------------------
+			 OPTKING Finished Execution 
+			--------------------------
+
+    Structure for next step:
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -2.570620086759    -0.232370273518     0.997398791214
+    O           -1.943235049189    -0.382487917965     0.312488558750
+    C           -1.021930698587     0.657206872273     0.270351269235
+    C            0.338707621180     0.077420064475    -0.055516261374
+    H           -1.259638058375     1.369459406100    -0.519651561256
+    H           -0.925298344672     1.196165770331     1.211743224559
+    F            0.335102992299    -0.590709014190    -1.195758341640
+    F            1.208446976673     1.059022481951    -0.179063406998
+    F            0.776293650441    -0.734081821445     0.886414456023
+
+gradient() will perform analytic gradient computation.
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:46:54 2016
+
+
+         ---------------------------------------------------------
+                                   SCF
+            by Justin Turney, Rob Parrish, and Andy Simmonett
+                              RHF Reference
+                        4 Threads,   2000 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.570620086759    -0.232370273518     0.997398791214     1.007825032070
+           O         -1.943235049189    -0.382487917965     0.312488558750    15.994914619560
+           C         -1.021930698587     0.657206872273     0.270351269235    12.000000000000
+           C          0.338707621180     0.077420064475    -0.055516261374    12.000000000000
+           H         -1.259638058375     1.369459406100    -0.519651561256     1.007825032070
+           H         -0.925298344672     1.196165770331     1.211743224559     1.007825032070
+           F          0.335102992299    -0.590709014190    -1.195758341640    18.998403224000
+           F          1.208446976673     1.059022481951    -0.179063406998    18.998403224000
+           F          0.776293650441    -0.734081821445     0.886414456023    18.998403224000
+
+  Running in c1 symmetry.
+
+  Rotational constants: A =      0.18214  B =      0.09667  C =      0.09537 [cm^-1]
+  Rotational constants: A =   5460.53485  B =   2898.22962  C =   2859.08662 [MHz]
+  Nuclear repulsion =  277.078172689869405
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 50
+  Nalpha       = 25
+  Nbeta        = 25
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 0.00e+00
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> Pre-Iterations <==
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A        222     222       0       0       0       0
+   -------------------------------------------------------
+    Total     222     222      25      25      25       0
+   -------------------------------------------------------
+
+  ==> Integral Setup <==
+
+  ==> DFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Algorithm:                Core
+    Integral Cache:           NONE
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+  Minimum eigenvalue in the overlap matrix is 1.0753535922E-03.
+  Using Symmetric Orthogonalization.
+  SCF Guess: Reading in previously saved MOs, projecting if necessary.
+
+  Using orbitals from previous SCF, no projection.
+  Recomputing DOCC and SOCC from number of alpha and beta electrons from previous calculation.
+              A 
+    DOCC [    25 ]
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -451.10021717722447   -4.51100e+02   1.46065e-03 
+   @DF-RHF iter   1:  -450.84259311630882    2.57624e-01   2.70004e-04 
+   @DF-RHF iter   2:  -450.84387287480064   -1.27976e-03   1.19173e-04 DIIS
+   @DF-RHF iter   3:  -450.84411162348721   -2.38749e-04   2.50767e-05 DIIS
+   @DF-RHF iter   4:  -450.84412849323400   -1.68697e-05   9.77007e-06 DIIS
+   @DF-RHF iter   5:  -450.84413131080333   -2.81757e-06   2.22812e-06 DIIS
+   @DF-RHF iter   6:  -450.84413158986587   -2.79063e-07   5.47193e-07 DIIS
+   @DF-RHF iter   7:  -450.84413160543835   -1.55725e-08   1.60148e-07 DIIS
+   @DF-RHF iter   8:  -450.84413160638616   -9.47807e-10   6.13785e-08 DIIS
+   @DF-RHF iter   9:  -450.84413160648506   -9.89075e-11   1.50303e-08 DIIS
+   @DF-RHF iter  10:  -450.84413160649632   -1.12550e-11   3.70443e-09 DIIS
+
+  ==> Post-Iterations <==
+
+    Orbital Energies (a.u.)
+    -----------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -26.334672     2A    -26.331324     3A    -26.328205  
+       4A    -20.583733     5A    -11.491137     6A    -11.312821  
+       7A     -1.739143     8A     -1.638400     9A     -1.633342  
+      10A     -1.405546    11A     -1.049114    12A     -0.922361  
+      13A     -0.830840    14A     -0.829864    15A     -0.788023  
+      16A     -0.740596    17A     -0.712811    18A     -0.702015  
+      19A     -0.670345    20A     -0.656793    21A     -0.642179  
+      22A     -0.640051    23A     -0.600090    24A     -0.534633  
+      25A     -0.482868  
+
+    Virtual:                                                              
+
+      26A      0.125408    27A      0.175055    28A      0.197786  
+      29A      0.283126    30A      0.306583    31A      0.344447  
+      32A      0.361293    33A      0.407194    34A      0.484400  
+      35A      0.486602    36A      0.513061    37A      0.521788  
+      38A      0.532815    39A      0.567926    40A      0.589634  
+      41A      0.609280    42A      0.632429    43A      0.645737  
+      44A      0.683520    45A      0.721522    46A      0.767663  
+      47A      0.803579    48A      0.809462    49A      0.855623  
+      50A      0.894348    51A      0.925883    52A      0.937769  
+      53A      0.996923    54A      1.035069    55A      1.052101  
+      56A      1.086128    57A      1.103631    58A      1.124395  
+      59A      1.135381    60A      1.147766    61A      1.168923  
+      62A      1.173490    63A      1.208321    64A      1.285961  
+      65A      1.321713    66A      1.344407    67A      1.358813  
+      68A      1.395875    69A      1.409364    70A      1.468702  
+      71A      1.485226    72A      1.523290    73A      1.540793  
+      74A      1.597946    75A      1.717760    76A      1.762458  
+      77A      1.994043    78A      2.015817    79A      2.050706  
+      80A      2.120854    81A      2.169073    82A      2.219350  
+      83A      2.229622    84A      2.243089    85A      2.256565  
+      86A      2.266061    87A      2.283359    88A      2.344095  
+      89A      2.372909    90A      2.378618    91A      2.409780  
+      92A      2.467236    93A      2.503511    94A      2.608829  
+      95A      2.651929    96A      2.699568    97A      2.720021  
+      98A      2.783699    99A      2.824294   100A      2.833758  
+     101A      2.864753   102A      2.887034   103A      3.001683  
+     104A      3.053478   105A      3.146727   106A      3.185172  
+     107A      3.232834   108A      3.254357   109A      3.266680  
+     110A      3.289110   111A      3.325166   112A      3.338844  
+     113A      3.363616   114A      3.408220   115A      3.433468  
+     116A      3.443451   117A      3.501083   118A      3.506531  
+     119A      3.613084   120A      3.631695   121A      3.651408  
+     122A      3.686725   123A      3.703178   124A      3.740590  
+     125A      3.755217   126A      3.813477   127A      3.844318  
+     128A      3.895592   129A      3.903506   130A      3.940089  
+     131A      3.954785   132A      3.979655   133A      4.070098  
+     134A      4.106928   135A      4.150254   136A      4.170224  
+     137A      4.194336   138A      4.263745   139A      4.281837  
+     140A      4.336219   141A      4.357653   142A      4.464100  
+     143A      4.503318   144A      4.532018   145A      4.552443  
+     146A      4.587199   147A      4.649016   148A      4.769920  
+     149A      4.908727   150A      5.063269   151A      5.115254  
+     152A      5.135292   153A      5.222458   154A      5.275636  
+     155A      5.337668   156A      5.355188   157A      5.378601  
+     158A      5.425729   159A      5.487790   160A      5.496613  
+     161A      5.548708   162A      5.571968   163A      5.647164  
+     164A      5.822625   165A      6.011118   166A      6.054257  
+     167A      6.125451   168A      6.241977   169A      6.435189  
+     170A      6.565025   171A      6.584141   172A      6.649127  
+     173A      7.021675   174A      7.126001   175A      7.217744  
+     176A      7.228330   177A      7.320996   178A      7.348838  
+     179A      7.362258   180A      7.364507   181A      7.368541  
+     182A      7.369670   183A      7.373242   184A      7.379427  
+     185A      7.383716   186A      7.395499   187A      7.490195  
+     188A      7.522119   189A      7.528429   190A      7.534730  
+     191A      7.600364   192A      7.631919   193A      7.636815  
+     194A      7.665403   195A      7.875308   196A      7.943026  
+     197A      7.960697   198A      7.978122   199A      8.098192  
+     200A      8.165894   201A      8.177248   202A      8.907660  
+     203A      8.909599   204A      8.936534   205A      9.031105  
+     206A      9.034356   207A      9.086485   208A      9.194978  
+     209A      9.326351   210A      9.407626   211A      9.410565  
+     212A      9.526310   213A      9.686708   214A      9.687952  
+     215A      9.736074   216A      9.741294   217A     11.141212  
+     218A     12.255740   219A     12.404789   220A     12.659129  
+     221A     13.122264   222A     13.707302  
+
+    Final Occupation by Irrep:
+              A 
+    DOCC [    25 ]
+
+  Energy converged.
+
+  @DF-RHF Final Energy:  -450.84413160649632
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =            277.0781726898694046
+    One-Electron Energy =               -1176.6427944262663914
+    Two-Electron Energy =                 448.7204901299006110
+    DFT Exchange-Correlation Energy =       0.0000000000000000
+    Empirical Dispersion Energy =           0.0000000000000000
+    PCM Polarization Energy =               0.0000000000000000
+    EFP Energy =                            0.0000000000000000
+    Total Energy =                       -450.8441316064963189
+
+
+  Saving occupied orbitals to File 180.
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:46:57 2016
+Module time:
+	user time   =       9.20 seconds =       0.15 minutes
+	system time =       0.25 seconds =       0.00 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =      55.71 seconds =       0.93 minutes
+	system time =       1.96 seconds =       0.03 minutes
+	total time  =         17 seconds =       0.28 minutes
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 Bohr
+
+Properties computed using the SCF density matrix
+
+  Nuclear Dipole Moment: (a.u.)
+     X:    -6.6560      Y:     2.4362      Z:     2.0461
+
+  Electronic Dipole Moment: (a.u.)
+     X:     5.7902      Y:    -1.6540      Z:    -1.3982
+
+  Dipole Moment: (a.u.)
+     X:    -0.8658      Y:     0.7822      Z:     0.6479     Total:     1.3346
+
+  Dipole Moment: (Debye)
+     X:    -2.2005      Y:     1.9881      Z:     1.6467     Total:     3.3921
+
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:46:57 2016
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.570620086759    -0.232370273518     0.997398791214     1.007825032070
+           O         -1.943235049189    -0.382487917965     0.312488558750    15.994914619560
+           C         -1.021930698587     0.657206872273     0.270351269235    12.000000000000
+           C          0.338707621180     0.077420064475    -0.055516261374    12.000000000000
+           H         -1.259638058375     1.369459406100    -0.519651561256     1.007825032070
+           H         -0.925298344672     1.196165770331     1.211743224559     1.007825032070
+           F          0.335102992299    -0.590709014190    -1.195758341640    18.998403224000
+           F          1.208446976673     1.059022481951    -0.179063406998    18.998403224000
+           F          0.776293650441    -0.734081821445     0.886414456023    18.998403224000
+
+  Nuclear repulsion =  277.078172689869405
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Schwarz Cutoff:          0E+00
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.001121001970     0.001539140197     0.002257024000
+       2        0.001762406024    -0.004262223819    -0.005163099295
+       3       -0.002473029982     0.000700037818     0.004578157089
+       4        0.000326989204     0.003114564573     0.003961343433
+       5       -0.000384293386     0.002316318696    -0.003625710301
+       6        0.001305526944     0.003371007784     0.003166224649
+       7        0.000765012180    -0.003344516734    -0.008478745347
+       8       -0.002214221955    -0.000252111331    -0.001029536475
+       9        0.002032612942    -0.003182217183     0.004334342248
+
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:47:00 2016
+Module time:
+	user time   =      13.21 seconds =       0.22 minutes
+	system time =       0.35 seconds =       0.01 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =      69.02 seconds =       1.15 minutes
+	system time =       2.31 seconds =       0.04 minutes
+	total time  =         20 seconds =       0.33 minutes
+
+			-----------------------------------------
+			 OPTKING 2.0: for geometry optimizations 
+			  - R.A. King,  Bethel University        
+			-----------------------------------------
+
+	Previous internal coordinate definitions found.
+	---Fragment 1 Geometry and Gradient---
+	 H          -4.8577679557       -0.4391161784        1.8848105607
+	 O          -3.6721820548       -0.7227974141        0.5905177957
+	 C          -1.9311691471        1.2419410012        0.5108898585
+	 C           0.6400646432        0.1463027190       -0.1049105299
+	 H          -2.3803709569        2.5879032276       -0.9819991353
+	 H          -1.7485604626        2.2604257155        2.2898628378
+	 F           0.6332528818       -1.1162782610       -2.2596557868
+	 F           2.2836338320        2.0012624595       -0.3383807996
+	 F           1.4669823980       -1.3872136017        1.6750805621
+	            -0.0011210020        0.0015391402        0.0022570240
+	             0.0017624060       -0.0042622238       -0.0051630993
+	            -0.0024730300        0.0007000378        0.0045781571
+	             0.0003269892        0.0031145646        0.0039613434
+	            -0.0003842934        0.0023163187       -0.0036257103
+	             0.0013055269        0.0033710078        0.0031662246
+	             0.0007650122       -0.0033445167       -0.0084787453
+	            -0.0022142220       -0.0002521113       -0.0010295365
+	             0.0020326129       -0.0031822172        0.0043343422
+
+	---Fragment 1 Intrafragment Coordinates---
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.778000	       0.940877
+	 R(2,3)           =         2.626340	       1.389799
+	 R(3,4)           =         2.861971	       1.514490
+	 R(3,5)           =         2.059639	       1.089914
+	 R(3,6)           =         2.058009	       1.089052
+	 R(4,7)           =         2.497416	       1.321575
+	 R(4,8)           =         2.489318	       1.317290
+	 R(4,9)           =         2.490750	       1.318048
+	 B(1,2,3)         =         1.922761	     110.166106
+	 B(2,3,4)         =         1.891988	     108.402929
+	 B(2,3,5)         =         1.945794	     111.485805
+	 B(2,3,6)         =         1.985406	     113.755387
+	 B(3,4,7)         =         1.957063	     112.131463
+	 B(3,4,8)         =         1.905074	     109.152693
+	 B(3,4,9)         =         1.960812	     112.346256
+	 B(4,3,5)         =         1.865187	     106.867371
+	 B(4,3,6)         =         1.871019	     107.201469
+	 B(5,3,6)         =         1.899165	     108.814130
+	 B(7,4,8)         =         1.872978	     107.313758
+	 B(7,4,9)         =         1.882024	     107.832056
+	 B(8,4,9)         =         1.882430	     107.855299
+	 D(1,2,3,4)       =         2.489519	     142.638934
+	*D(1,2,3,5)       =        -1.745329	     -99.999981
+	 D(1,2,3,6)       =         0.410120	      23.498160
+	 D(2,3,4,7)       =         1.002857	      57.459482
+	 D(2,3,4,8)       =         3.075849	     176.233168
+	 D(2,3,4,9)       =        -1.120195	     -64.182444
+	 D(5,3,4,7)       =        -1.096445	     -62.821658
+	 D(5,3,4,8)       =         0.976547	      55.952028
+	 D(5,3,4,9)       =         3.063688	     175.536416
+	 D(6,3,4,7)       =        -3.130249	    -179.350068
+	 D(6,3,4,8)       =        -1.057257	     -60.576383
+	 D(6,3,4,9)       =         1.029884	      59.008006
+
+	Current energy   :      -450.8441316065
+
+	Energy change for the previous step:
+		Projected    :        -0.0365263466
+		Actual       :        -0.0228154824
+
+	Performing BFGS update.
+	Previous computed or guess Hessian on step 1.
+	Steps to be used in Hessian update: 2 1
+	Taking RFO optimization step.
+	Going to follow RFO solution 1.
+	Using RFO vector 1.
+	Norm of target step-size    0.08410
+	Projected energy change by RFO approximation:        -0.0003677927
+
+	Back-transformation to cartesian coordinates...
+	Successfully converged to displaced geometry.
+
+	Back-transformation to cartesian coordinates to adjust frozen coordinates...
+	Successfully converged to displaced geometry.
+
+	--- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	 ---------------------------------------------------------------------------
+	   Coordinate                Previous        Force       Change         New 
+	   ----------                --------       ------       ------       ------
+	    1 R(1,2)          =      0.940877    -0.021718    -0.003277     0.937600
+	    2 R(2,3)          =      1.389799    -0.012554    -0.001620     1.388179
+	    3 R(3,4)          =      1.514490    -0.020445    -0.004796     1.509693
+	    4 R(3,5)          =      1.089914    -0.034813    -0.006853     1.083062
+	    5 R(3,6)          =      1.089052    -0.037248    -0.006249     1.082802
+	    6 R(4,7)          =      1.321575    -0.074183    -0.007985     1.313590
+	    7 R(4,8)          =      1.317290     0.012797     0.000963     1.318254
+	    8 R(4,9)          =      1.318048    -0.047221    -0.006383     1.311665
+	    9 B(1,2,3)        =    110.166106     0.000180     0.729967   110.896072
+	   10 B(2,3,4)        =    108.402929     0.000242     0.634915   109.037844
+	   11 B(2,3,5)        =    111.485805    -0.000030     0.162772   111.648577
+	   12 B(2,3,6)        =    113.755387    -0.000168    -0.836243   112.919145
+	   13 B(3,4,7)        =    112.131463    -0.000077    -0.218792   111.912671
+	   14 B(3,4,8)        =    109.152693     0.000202     0.437272   109.589965
+	   15 B(3,4,9)        =    112.346256    -0.000045    -0.297810   112.048446
+	   16 B(4,3,5)        =    106.867371    -0.000034     0.553170   107.420541
+	   17 B(4,3,6)        =    107.201469    -0.000053    -0.332018   106.869451
+	   18 B(5,3,6)        =    108.814130     0.000051    -0.121836   108.692293
+	   19 B(7,4,8)        =    107.313758     0.000035     0.511367   107.825125
+	   20 B(7,4,9)        =    107.832056    -0.000023    -0.191270   107.640785
+	   21 B(8,4,9)        =    107.855299    -0.000092    -0.215784   107.639515
+	   22 D(1,2,3,4)      =    142.638934    -0.000021    -1.174215   141.464719
+	   23 *D(1,2,3,5)     =    -99.999981    -0.000000     0.000000   -99.999981
+	   24 D(1,2,3,6)      =     23.498160    -0.000019    -0.666119    22.832042
+	   25 D(2,3,4,7)      =     57.459482    -0.000004     1.320665    58.780148
+	   26 D(2,3,4,8)      =    176.233168     0.000025     2.109939   178.343107
+	   27 D(2,3,4,9)      =    -64.182444     0.000023     1.942532   -62.239912
+	   28 D(5,3,4,7)      =    -62.821658    -0.000022     0.451013   -62.370645
+	   29 D(5,3,4,8)      =     55.952028     0.000007     1.240286    57.192314
+	   30 D(5,3,4,9)      =    175.536416     0.000005     1.072879   176.609295
+	   31 D(6,3,4,7)      =   -179.350068    -0.000026     0.482794  -178.867274
+	   32 D(6,3,4,8)      =    -60.576383     0.000004     1.272067   -59.304316
+	   33 D(6,3,4,9)      =     59.008006     0.000002     1.104660    60.112666
+	 ---------------------------------------------------------------------------
+	Successfully symmetrized geometry.
+
+  ==> Convergence Check <==
+
+  Measures of convergence in internal coordinates in au.
+  Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+  ---------------------------------------------------------------------------------------------
+   Step     Total Energy     Delta E     MAX Force     RMS Force      MAX Disp      RMS Disp   
+  ---------------------------------------------------------------------------------------------
+    Convergence Criteria    1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+  ---------------------------------------------------------------------------------------------
+      3    -450.84413161   -2.28e-02      9.00e-03      2.54e-03 o    3.68e-02      1.46e-02 o  ~
+  ---------------------------------------------------------------------------------------------
+
+	Writing optimization data to binary file.
+	Structure for next step:
+	Cartesian Geometry (in Angstrom)
+	    H    -2.5670406816  -0.2203495120   1.0097783875
+	    O    -1.9506975939  -0.3673620557   0.3186907911
+	    C    -1.0173205102   0.6585701177   0.2611353662
+	    C     0.3373275575   0.0744650751  -0.0596821866
+	    H    -1.2555001507   1.3721870598  -0.5179947687
+	    H    -0.9162681502   1.1898296498   1.1992249979
+	    F     0.3326552139  -0.5768739105  -1.2004077049
+	    F     1.2259737230   1.0437739954  -0.1520988724
+	    F     0.7486995953  -0.7546148517   0.8697607183
+			--------------------------
+			 OPTKING Finished Execution 
+			--------------------------
+
+    Structure for next step:
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -2.564026197714    -0.218493437064     1.009301347612
+    O           -1.947683110016    -0.365505980766     0.318213751190
+    C           -1.014306026320     0.660426192592     0.260658326253
+    C            0.340342041404     0.076321150068    -0.060159226479
+    H           -1.252485666758     1.374043134750    -0.518471808572
+    H           -0.913253666281     1.191685724769     1.198747958019
+    F            0.335669697842    -0.575017835542    -1.200884744763
+    F            1.228988206900     1.045630070381    -0.152575912344
+    F            0.751714079183    -0.752758776752     0.869283678388
+
+gradient() will perform analytic gradient computation.
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:47:01 2016
+
+
+         ---------------------------------------------------------
+                                   SCF
+            by Justin Turney, Rob Parrish, and Andy Simmonett
+                              RHF Reference
+                        4 Threads,   2000 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.564026197714    -0.218493437064     1.009301347612     1.007825032070
+           O         -1.947683110016    -0.365505980766     0.318213751190    15.994914619560
+           C         -1.014306026320     0.660426192592     0.260658326253    12.000000000000
+           C          0.340342041404     0.076321150068    -0.060159226479    12.000000000000
+           H         -1.252485666758     1.374043134750    -0.518471808572     1.007825032070
+           H         -0.913253666281     1.191685724769     1.198747958019     1.007825032070
+           F          0.335669697842    -0.575017835542    -1.200884744763    18.998403224000
+           F          1.228988206900     1.045630070381    -0.152575912344    18.998403224000
+           F          0.751714079183    -0.752758776752     0.869283678388    18.998403224000
+
+  Running in c1 symmetry.
+
+  Rotational constants: A =      0.18412  B =      0.09688  C =      0.09545 [cm^-1]
+  Rotational constants: A =   5519.84113  B =   2904.30454  C =   2861.40363 [MHz]
+  Nuclear repulsion =  277.795209619776813
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 50
+  Nalpha       = 25
+  Nbeta        = 25
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 0.00e+00
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> Pre-Iterations <==
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A        222     222       0       0       0       0
+   -------------------------------------------------------
+    Total     222     222      25      25      25       0
+   -------------------------------------------------------
+
+  ==> Integral Setup <==
+
+  ==> DFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Algorithm:                Core
+    Integral Cache:           NONE
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+  Minimum eigenvalue in the overlap matrix is 1.0630292533E-03.
+  Using Symmetric Orthogonalization.
+  SCF Guess: Reading in previously saved MOs, projecting if necessary.
+
+  Using orbitals from previous SCF, no projection.
+  Recomputing DOCC and SOCC from number of alpha and beta electrons from previous calculation.
+              A 
+    DOCC [    25 ]
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -450.86440069639042   -4.50864e+02   3.31439e-04 
+   @DF-RHF iter   1:  -450.84432639650964    2.00743e-02   4.96754e-05 
+   @DF-RHF iter   2:  -450.84440582075655   -7.94242e-05   1.87166e-05 DIIS
+   @DF-RHF iter   3:  -450.84441596704477   -1.01463e-05   9.02245e-06 DIIS
+   @DF-RHF iter   4:  -450.84441807581612   -2.10877e-06   1.84153e-06 DIIS
+   @DF-RHF iter   5:  -450.84441820020044   -1.24384e-07   6.71596e-07 DIIS
+   @DF-RHF iter   6:  -450.84441822303467   -2.28342e-08   1.46825e-07 DIIS
+   @DF-RHF iter   7:  -450.84441822416369   -1.12902e-09   3.03960e-08 DIIS
+   @DF-RHF iter   8:  -450.84441822420098   -3.72893e-11   1.19387e-08 DIIS
+   @DF-RHF iter   9:  -450.84441822420530   -4.32010e-12   3.79202e-09 DIIS
+
+  ==> Post-Iterations <==
+
+    Orbital Energies (a.u.)
+    -----------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -26.334260     2A    -26.330918     3A    -26.329301  
+       4A    -20.582346     5A    -11.489609     6A    -11.309943  
+       7A     -1.742372     8A     -1.639039     9A     -1.636434  
+      10A     -1.405789    11A     -1.050881    12A     -0.924126  
+      13A     -0.833470    14A     -0.831711    15A     -0.790419  
+      16A     -0.741576    17A     -0.713600    18A     -0.703909  
+      19A     -0.671178    20A     -0.657934    21A     -0.642488  
+      22A     -0.640456    23A     -0.600322    24A     -0.533183  
+      25A     -0.483134  
+
+    Virtual:                                                              
+
+      26A      0.125949    27A      0.175631    28A      0.199054  
+      29A      0.284873    30A      0.307010    31A      0.346208  
+      32A      0.362645    33A      0.408314    34A      0.483931  
+      35A      0.486536    36A      0.515571    37A      0.526152  
+      38A      0.536190    39A      0.571023    40A      0.592167  
+      41A      0.611583    42A      0.636307    43A      0.647004  
+      44A      0.682979    45A      0.721949    46A      0.766779  
+      47A      0.806078    48A      0.809711    49A      0.857415  
+      50A      0.896138    51A      0.926014    52A      0.936085  
+      53A      0.996394    54A      1.036444    55A      1.052990  
+      56A      1.087765    57A      1.104610    58A      1.127332  
+      59A      1.138375    60A      1.146643    61A      1.169005  
+      62A      1.172691    63A      1.211867    64A      1.288676  
+      65A      1.324166    66A      1.342905    67A      1.359720  
+      68A      1.397372    69A      1.410811    70A      1.468450  
+      71A      1.486213    72A      1.526718    73A      1.542904  
+      74A      1.605281    75A      1.725309    76A      1.764878  
+      77A      1.996035    78A      2.015183    79A      2.053493  
+      80A      2.121126    81A      2.170199    82A      2.216872  
+      83A      2.229552    84A      2.245006    85A      2.258538  
+      86A      2.267386    87A      2.284290    88A      2.350828  
+      89A      2.368744    90A      2.387671    91A      2.415391  
+      92A      2.473632    93A      2.506159    94A      2.607476  
+      95A      2.655735    96A      2.701262    97A      2.725864  
+      98A      2.787670    99A      2.829259   100A      2.836443  
+     101A      2.868266   102A      2.887181   103A      3.008191  
+     104A      3.056678   105A      3.150828   106A      3.188598  
+     107A      3.232457   108A      3.254927   109A      3.270108  
+     110A      3.292825   111A      3.326990   112A      3.340242  
+     113A      3.362674   114A      3.410440   115A      3.432819  
+     116A      3.446512   117A      3.509826   118A      3.513442  
+     119A      3.621223   120A      3.638405   121A      3.657589  
+     122A      3.693399   123A      3.706478   124A      3.745551  
+     125A      3.758196   126A      3.822360   127A      3.851305  
+     128A      3.900730   129A      3.907914   130A      3.945004  
+     131A      3.957479   132A      3.984320   133A      4.077204  
+     134A      4.122463   135A      4.156574   136A      4.174738  
+     137A      4.199455   138A      4.272132   139A      4.292839  
+     140A      4.345896   141A      4.368907   142A      4.475172  
+     143A      4.509671   144A      4.537044   145A      4.564074  
+     146A      4.596790   147A      4.659074   148A      4.775794  
+     149A      4.919854   150A      5.077553   151A      5.123424  
+     152A      5.154327   153A      5.228982   154A      5.282021  
+     155A      5.339966   156A      5.371648   157A      5.386860  
+     158A      5.440637   159A      5.494186   160A      5.506179  
+     161A      5.555726   162A      5.595881   163A      5.670681  
+     164A      5.831063   165A      6.018229   166A      6.063749  
+     167A      6.123871   168A      6.250923   169A      6.447064  
+     170A      6.567893   171A      6.593881   172A      6.660032  
+     173A      7.024848   174A      7.137927   175A      7.225843  
+     176A      7.237404   177A      7.319874   178A      7.349223  
+     179A      7.361847   180A      7.363953   181A      7.367960  
+     182A      7.368498   183A      7.371835   184A      7.379133  
+     185A      7.384350   186A      7.397028   187A      7.491824  
+     188A      7.526120   189A      7.532429   190A      7.542674  
+     191A      7.610738   192A      7.639684   193A      7.640900  
+     194A      7.672105   195A      7.887762   196A      7.954989  
+     197A      7.971876   198A      7.992810   199A      8.109959  
+     200A      8.178567   201A      8.188971   202A      8.909027  
+     203A      8.910922   204A      8.938987   205A      9.034435  
+     206A      9.038421   207A      9.091196   208A      9.216040  
+     209A      9.331329   210A      9.413275   211A      9.417663  
+     212A      9.533240   213A      9.684814   214A      9.687242  
+     215A      9.745606   216A      9.746230   217A     11.178146  
+     218A     12.275718   219A     12.449993   220A     12.684714  
+     221A     13.186401   222A     13.815551  
+
+    Final Occupation by Irrep:
+              A 
+    DOCC [    25 ]
+
+  Energy converged.
+
+  @DF-RHF Final Energy:  -450.84441822420530
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =            277.7952096197768128
+    One-Electron Energy =               -1178.0424610619534178
+    Two-Electron Energy =                 449.4028332179713061
+    DFT Exchange-Correlation Energy =       0.0000000000000000
+    Empirical Dispersion Energy =           0.0000000000000000
+    PCM Polarization Energy =               0.0000000000000000
+    EFP Energy =                            0.0000000000000000
+    Total Energy =                       -450.8444182242052420
+
+
+  Saving occupied orbitals to File 180.
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:47:03 2016
+Module time:
+	user time   =       8.71 seconds =       0.15 minutes
+	system time =       0.22 seconds =       0.00 minutes
+	total time  =          2 seconds =       0.03 minutes
+Total time:
+	user time   =      78.52 seconds =       1.31 minutes
+	system time =       2.57 seconds =       0.04 minutes
+	total time  =         23 seconds =       0.38 minutes
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 Bohr
+
+Properties computed using the SCF density matrix
+
+  Nuclear Dipole Moment: (a.u.)
+     X:    -6.6285      Y:     2.4649      Z:     2.0422
+
+  Electronic Dipole Moment: (a.u.)
+     X:     5.7832      Y:    -1.6908      Z:    -1.4073
+
+  Dipole Moment: (a.u.)
+     X:    -0.8454      Y:     0.7740      Z:     0.6349     Total:     1.3103
+
+  Dipole Moment: (Debye)
+     X:    -2.1487      Y:     1.9674      Z:     1.6138     Total:     3.3304
+
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:47:03 2016
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.564026197714    -0.218493437064     1.009301347612     1.007825032070
+           O         -1.947683110016    -0.365505980766     0.318213751190    15.994914619560
+           C         -1.014306026320     0.660426192592     0.260658326253    12.000000000000
+           C          0.340342041404     0.076321150068    -0.060159226479    12.000000000000
+           H         -1.252485666758     1.374043134750    -0.518471808572     1.007825032070
+           H         -0.913253666281     1.191685724769     1.198747958019     1.007825032070
+           F          0.335669697842    -0.575017835542    -1.200884744763    18.998403224000
+           F          1.228988206900     1.045630070381    -0.152575912344    18.998403224000
+           F          0.751714079183    -0.752758776752     0.869283678388    18.998403224000
+
+  Nuclear repulsion =  277.795209619776813
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Schwarz Cutoff:          0E+00
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1        0.000403449988    -0.000230102485    -0.000723627140
+       2       -0.000815714697    -0.000320732827     0.000736358605
+       3        0.000091205810    -0.000103321404    -0.000384485505
+       4        0.001472202071     0.001263781781     0.001738792795
+       5        0.000335700643    -0.000193657134     0.000336158760
+       6        0.000442119227     0.000140092255    -0.000309940377
+       7       -0.000520492228    -0.000825797766    -0.000252255640
+       8       -0.000718872241    -0.000738199158     0.000526787318
+       9       -0.000689598570     0.001007936739    -0.001667788818
+
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:47:06 2016
+Module time:
+	user time   =      11.31 seconds =       0.19 minutes
+	system time =       0.30 seconds =       0.00 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =      89.96 seconds =       1.50 minutes
+	system time =       2.87 seconds =       0.05 minutes
+	total time  =         26 seconds =       0.43 minutes
+
+			-----------------------------------------
+			 OPTKING 2.0: for geometry optimizations 
+			  - R.A. King,  Bethel University        
+			-----------------------------------------
+
+	Previous internal coordinate definitions found.
+	---Fragment 1 Geometry and Gradient---
+	 H          -4.8453073112       -0.4128927579        1.9073031325
+	 O          -3.6805876716       -0.6907062036        0.6013368415
+	 C          -1.9167606047        1.2480246350        0.4925728509
+	 C           0.6431532498        0.1442260718       -0.1136844624
+	 H          -2.3668548955        2.5965652194       -0.9797697258
+	 H          -1.7257993191        2.2519596563        2.2653053430
+	 F           0.6343238000       -1.0866262307       -2.2693432848
+	 F           2.3224511316        1.9759544693       -0.2883266888
+	 F           1.4205337399       -1.4225079322        1.6427080839
+	             0.0004034500       -0.0002301025       -0.0007236271
+	            -0.0008157147       -0.0003207328        0.0007363586
+	             0.0000912058       -0.0001033214       -0.0003844855
+	             0.0014722021        0.0012637818        0.0017387928
+	             0.0003357006       -0.0001936571        0.0003361588
+	             0.0004421192        0.0001400923       -0.0003099404
+	            -0.0005204922       -0.0008257978       -0.0002522556
+	            -0.0007188722       -0.0007381992        0.0005267873
+	            -0.0006895986        0.0010079367       -0.0016677888
+
+	---Fragment 1 Intrafragment Coordinates---
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.771807	       0.937600
+	 R(2,3)           =         2.623279	       1.388179
+	 R(3,4)           =         2.852907	       1.509693
+	 R(3,5)           =         2.046690	       1.083062
+	 R(3,6)           =         2.046199	       1.082802
+	 R(4,7)           =         2.482326	       1.313590
+	 R(4,8)           =         2.491138	       1.318254
+	 R(4,9)           =         2.478687	       1.311665
+	 B(1,2,3)         =         1.935502	     110.896072
+	 B(2,3,4)         =         1.903069	     109.037844
+	 B(2,3,5)         =         1.948635	     111.648577
+	 B(2,3,6)         =         1.970811	     112.919145
+	 B(3,4,7)         =         1.953245	     111.912671
+	 B(3,4,8)         =         1.912706	     109.589965
+	 B(3,4,9)         =         1.955614	     112.048446
+	 B(4,3,5)         =         1.874842	     107.420541
+	 B(4,3,6)         =         1.865224	     106.869451
+	 B(5,3,6)         =         1.897038	     108.692293
+	 B(7,4,8)         =         1.881903	     107.825125
+	 B(7,4,9)         =         1.878686	     107.640785
+	 B(8,4,9)         =         1.878664	     107.639515
+	 D(1,2,3,4)       =         2.469025	     141.464719
+	*D(1,2,3,5)       =        -1.745329	     -99.999981
+	 D(1,2,3,6)       =         0.398494	      22.832042
+	 D(2,3,4,7)       =         1.025907	      58.780148
+	 D(2,3,4,8)       =         3.112674	     178.343107
+	 D(2,3,4,9)       =        -1.086291	     -62.239912
+	 D(5,3,4,7)       =        -1.088573	     -62.370645
+	 D(5,3,4,8)       =         0.998194	      57.192314
+	 D(5,3,4,9)       =         3.082414	     176.609295
+	 D(6,3,4,7)       =        -3.121823	    -178.867274
+	 D(6,3,4,8)       =        -1.035056	     -59.304316
+	 D(6,3,4,9)       =         1.049164	      60.112666
+
+	Current energy   :      -450.8444182242
+
+	Energy change for the previous step:
+		Projected    :        -0.0003677927
+		Actual       :        -0.0002866177
+	Energy ratio indicates good step: Trust radius increased to 1.000e+00.
+
+
+	Performing BFGS update.
+	Previous computed or guess Hessian on step 1.
+	Steps to be used in Hessian update: 3 2
+	Taking RFO optimization step.
+	Going to follow RFO solution 1.
+	Using RFO vector 1.
+	Norm of target step-size    0.02301
+	Projected energy change by RFO approximation:        -0.0000508703
+
+	Back-transformation to cartesian coordinates...
+	Successfully converged to displaced geometry.
+
+	Back-transformation to cartesian coordinates to adjust frozen coordinates...
+	Successfully converged to displaced geometry.
+
+	--- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	 ---------------------------------------------------------------------------
+	   Coordinate                Previous        Force       Change         New 
+	   ----------                --------       ------       ------       ------
+	    1 R(1,2)          =      0.937600     0.006877     0.000809     0.938408
+	    2 R(2,3)          =      1.388179    -0.005642    -0.000762     1.387417
+	    3 R(3,4)          =      1.509693     0.006238     0.001157     1.510851
+	    4 R(3,5)          =      1.083062     0.003652     0.000635     1.083696
+	    5 R(3,6)          =      1.082802     0.001306     0.000148     1.082950
+	    6 R(4,7)          =      1.313590    -0.005194    -0.000520     1.313070
+	    7 R(4,8)          =      1.318254     0.008769     0.000874     1.319127
+	    8 R(4,9)          =      1.311665     0.016767     0.001874     1.313539
+	    9 B(1,2,3)        =    110.896072    -0.000024    -0.110356   110.785716
+	   10 B(2,3,4)        =    109.037844    -0.000001     0.001038   109.038883
+	   11 B(2,3,5)        =    111.648577    -0.000010    -0.089024   111.559554
+	   12 B(2,3,6)        =    112.919145    -0.000026    -0.222122   112.697023
+	   13 B(3,4,7)        =    111.912671     0.000048     0.166666   112.079337
+	   14 B(3,4,8)        =    109.589965    -0.000002    -0.054747   109.535218
+	   15 B(3,4,9)        =    112.048446    -0.000013     0.012897   112.061343
+	   16 B(4,3,5)        =    107.420541     0.000011     0.140609   107.561150
+	   17 B(4,3,6)        =    106.869451     0.000027     0.141338   107.010789
+	   18 B(5,3,6)        =    108.692293     0.000003     0.055180   108.747474
+	   19 B(7,4,8)        =    107.825125    -0.000051    -0.265785   107.559340
+	   20 B(7,4,9)        =    107.640785     0.000013     0.157688   107.798473
+	   21 B(8,4,9)        =    107.639515     0.000003    -0.033450   107.606065
+	   22 D(1,2,3,4)      =    141.464719    -0.000001    -0.120243   141.344476
+	   23 *D(1,2,3,5)     =    -99.999981     0.000000     0.000000   -99.999981
+	   24 D(1,2,3,6)      =     22.832042    -0.000005    -0.159366    22.672676
+	   25 D(2,3,4,7)      =     58.780148     0.000006    -0.099047    58.681101
+	   26 D(2,3,4,8)      =    178.343107    -0.000002    -0.362198   177.980908
+	   27 D(2,3,4,9)      =    -62.239912    -0.000003    -0.432298   -62.672210
+	   28 D(5,3,4,7)      =    -62.370645     0.000008    -0.075847   -62.446492
+	   29 D(5,3,4,8)      =     57.192314    -0.000000    -0.338998    56.853316
+	   30 D(5,3,4,9)      =    176.609295    -0.000002    -0.409097   176.200198
+	   31 D(6,3,4,7)      =   -178.867274     0.000003    -0.281360  -179.148634
+	   32 D(6,3,4,8)      =    -59.304316    -0.000006    -0.544511   -59.848827
+	   33 D(6,3,4,9)      =     60.112666    -0.000007    -0.614611    59.498055
+	 ---------------------------------------------------------------------------
+	Successfully symmetrized geometry.
+
+  ==> Convergence Check <==
+
+  Measures of convergence in internal coordinates in au.
+  Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+  ---------------------------------------------------------------------------------------------
+   Step     Total Energy     Delta E     MAX Force     RMS Force      MAX Disp      RMS Disp   
+  ---------------------------------------------------------------------------------------------
+    Convergence Criteria    1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+  ---------------------------------------------------------------------------------------------
+      4    -450.84441822   -2.87e-04      2.04e-03      5.42e-04 o    1.07e-02      4.00e-03 o  ~
+  ---------------------------------------------------------------------------------------------
+
+	Writing optimization data to binary file.
+	Structure for next step:
+	Cartesian Geometry (in Angstrom)
+	    H    -2.5616516802  -0.2213939286   1.0118360370
+	    O    -1.9476928482  -0.3660960576   0.3170510416
+	    C    -1.0149987774   0.6595964007   0.2626211423
+	    C     0.3402877276   0.0765839185  -0.0629018106
+	    H    -1.2570039131   1.3771863959  -0.5125537489
+	    H    -0.9160220723   1.1848071107   1.2045015256
+	    F     0.3372345299  -0.5721660880  -1.2045093601
+	    F     1.2268414258   1.0485487566  -0.1598737132
+	    F     0.7579649663  -0.7507362657   0.8679422557
+			--------------------------
+			 OPTKING Finished Execution 
+			--------------------------
+
+    Structure for next step:
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -2.562587849474    -0.222644990750     1.014302007003
+    O           -1.948629017425    -0.367347119778     0.319517011568
+    C           -1.015934946673     0.658345338594     0.265087112247
+    C            0.339351558319     0.075332856328    -0.060435840663
+    H           -1.257940082378     1.375935333746    -0.510087778884
+    H           -0.916958241552     1.183556048510     1.206967495537
+    F            0.336298360603    -0.573417150112    -1.202043390143
+    F            1.225905256510     1.047297694454    -0.157407743263
+    F            0.757028797016    -0.751987327826     0.870408225720
+
+gradient() will perform analytic gradient computation.
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:47:07 2016
+
+
+         ---------------------------------------------------------
+                                   SCF
+            by Justin Turney, Rob Parrish, and Andy Simmonett
+                              RHF Reference
+                        4 Threads,   2000 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.562587849474    -0.222644990750     1.014302007003     1.007825032070
+           O         -1.948629017425    -0.367347119778     0.319517011568    15.994914619560
+           C         -1.015934946673     0.658345338594     0.265087112247    12.000000000000
+           C          0.339351558319     0.075332856328    -0.060435840663    12.000000000000
+           H         -1.257940082378     1.375935333746    -0.510087778884     1.007825032070
+           H         -0.916958241552     1.183556048510     1.206967495537     1.007825032070
+           F          0.336298360603    -0.573417150112    -1.202043390143    18.998403224000
+           F          1.225905256510     1.047297694454    -0.157407743263    18.998403224000
+           F          0.757028797016    -0.751987327826     0.870408225720    18.998403224000
+
+  Running in c1 symmetry.
+
+  Rotational constants: A =      0.18391  B =      0.09670  C =      0.09537 [cm^-1]
+  Rotational constants: A =   5513.42137  B =   2898.88476  C =   2859.14475 [MHz]
+  Nuclear repulsion =  277.646369568575039
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 50
+  Nalpha       = 25
+  Nbeta        = 25
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 0.00e+00
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> Pre-Iterations <==
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A        222     222       0       0       0       0
+   -------------------------------------------------------
+    Total     222     222      25      25      25       0
+   -------------------------------------------------------
+
+  ==> Integral Setup <==
+
+  ==> DFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Algorithm:                Core
+    Integral Cache:           NONE
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+  Minimum eigenvalue in the overlap matrix is 1.0662092803E-03.
+  Using Symmetric Orthogonalization.
+  SCF Guess: Reading in previously saved MOs, projecting if necessary.
+
+  Using orbitals from previous SCF, no projection.
+  Recomputing DOCC and SOCC from number of alpha and beta electrons from previous calculation.
+              A 
+    DOCC [    25 ]
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -450.84134149284972   -4.50841e+02   6.40919e-05 
+   @DF-RHF iter   1:  -450.84442601562881   -3.08452e-03   1.11367e-05 
+   @DF-RHF iter   2:  -450.84442978333874   -3.76771e-06   4.72257e-06 DIIS
+   @DF-RHF iter   3:  -450.84443032446501   -5.41126e-07   2.12908e-06 DIIS
+   @DF-RHF iter   4:  -450.84443046313396   -1.38669e-07   4.15483e-07 DIIS
+   @DF-RHF iter   5:  -450.84443047029634   -7.16238e-09   1.37985e-07 DIIS
+   @DF-RHF iter   6:  -450.84443047131623   -1.01988e-09   3.63986e-08 DIIS
+   @DF-RHF iter   7:  -450.84443047138660   -7.03722e-11   1.08626e-08 DIIS
+   @DF-RHF iter   8:  -450.84443047139138   -4.77485e-12   3.83883e-09 DIIS
+
+  ==> Post-Iterations <==
+
+    Orbital Energies (a.u.)
+    -----------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -26.333739     2A    -26.330952     3A    -26.329742  
+       4A    -20.582443     5A    -11.489982     6A    -11.310279  
+       7A     -1.741879     8A     -1.638269     9A     -1.636562  
+      10A     -1.406074    11A     -1.050388    12A     -0.923926  
+      13A     -0.832865    14A     -0.831517    15A     -0.790393  
+      16A     -0.741467    17A     -0.713595    18A     -0.703641  
+      19A     -0.671114    20A     -0.657654    21A     -0.642515  
+      22A     -0.640673    23A     -0.600523    24A     -0.533275  
+      25A     -0.483063  
+
+    Virtual:                                                              
+
+      26A      0.125642    27A      0.175678    28A      0.198962  
+      29A      0.284701    30A      0.306805    31A      0.345843  
+      32A      0.362441    33A      0.407969    34A      0.483892  
+      35A      0.487148    36A      0.515721    37A      0.525943  
+      38A      0.535598    39A      0.570508    40A      0.591930  
+      41A      0.611312    42A      0.635824    43A      0.646681  
+      44A      0.682539    45A      0.721333    46A      0.766778  
+      47A      0.806133    48A      0.809276    49A      0.857248  
+      50A      0.895506    51A      0.925868    52A      0.936923  
+      53A      0.996403    54A      1.035990    55A      1.052941  
+      56A      1.087496    57A      1.104040    58A      1.126939  
+      59A      1.137563    60A      1.147425    61A      1.168712  
+      62A      1.172678    63A      1.212220    64A      1.288548  
+      65A      1.323876    66A      1.342939    67A      1.358824  
+      68A      1.397655    69A      1.411283    70A      1.470063  
+      71A      1.485012    72A      1.526376    73A      1.543283  
+      74A      1.604572    75A      1.724670    76A      1.763226  
+      77A      1.995378    78A      2.014437    79A      2.051728  
+      80A      2.121003    81A      2.169938    82A      2.217086  
+      83A      2.229267    84A      2.244942    85A      2.257911  
+      86A      2.267052    87A      2.283092    88A      2.350187  
+      89A      2.370204    90A      2.387673    91A      2.416488  
+      92A      2.473058    93A      2.505862    94A      2.606422  
+      95A      2.655221    96A      2.700264    97A      2.723951  
+      98A      2.786851    99A      2.828548   100A      2.835536  
+     101A      2.866906   102A      2.885462   103A      3.006645  
+     104A      3.056016   105A      3.149907   106A      3.188651  
+     107A      3.231689   108A      3.255096   109A      3.270196  
+     110A      3.292658   111A      3.326429   112A      3.341209  
+     113A      3.362614   114A      3.410482   115A      3.432736  
+     116A      3.445882   117A      3.509416   118A      3.512232  
+     119A      3.619215   120A      3.637413   121A      3.656868  
+     122A      3.693361   123A      3.706303   124A      3.744748  
+     125A      3.757815   126A      3.822243   127A      3.851275  
+     128A      3.900486   129A      3.906991   130A      3.944415  
+     131A      3.957395   132A      3.984793   133A      4.076735  
+     134A      4.120311   135A      4.154479   136A      4.172742  
+     137A      4.198759   138A      4.271571   139A      4.289784  
+     140A      4.343525   141A      4.367256   142A      4.473175  
+     143A      4.508647   144A      4.535847   145A      4.562850  
+     146A      4.595894   147A      4.658646   148A      4.776662  
+     149A      4.918173   150A      5.075804   151A      5.121508  
+     152A      5.154140   153A      5.230686   154A      5.280599  
+     155A      5.339914   156A      5.369696   157A      5.386202  
+     158A      5.438635   159A      5.493866   160A      5.505313  
+     161A      5.555755   162A      5.594473   163A      5.669501  
+     164A      5.831036   165A      6.017366   166A      6.062083  
+     167A      6.123088   168A      6.250472   169A      6.445879  
+     170A      6.565662   171A      6.593300   172A      6.659436  
+     173A      7.024475   174A      7.135032   175A      7.226487  
+     176A      7.233953   177A      7.320083   178A      7.349862  
+     179A      7.362082   180A      7.364153   181A      7.367832  
+     182A      7.368645   183A      7.371689   184A      7.379163  
+     185A      7.384326   186A      7.397357   187A      7.491621  
+     188A      7.525928   189A      7.532091   190A      7.541614  
+     191A      7.608982   192A      7.638465   193A      7.640707  
+     194A      7.671308   195A      7.885250   196A      7.952584  
+     197A      7.971075   198A      7.990812   199A      8.106863  
+     200A      8.177218   201A      8.186551   202A      8.909144  
+     203A      8.910281   204A      8.938842   205A      9.034150  
+     206A      9.037808   207A      9.090161   208A      9.212249  
+     209A      9.330134   210A      9.412262   211A      9.416016  
+     212A      9.532156   213A      9.685284   214A      9.686956  
+     215A      9.743568   216A      9.747023   217A     11.171897  
+     218A     12.265929   219A     12.443753   220A     12.675077  
+     221A     13.175386   222A     13.804129  
+
+    Final Occupation by Irrep:
+              A 
+    DOCC [    25 ]
+
+  Energy converged.
+
+  @DF-RHF Final Energy:  -450.84443047139138
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =            277.6463695685750395
+    One-Electron Energy =               -1177.7485399520867304
+    Two-Electron Energy =                 449.2577399121205417
+    DFT Exchange-Correlation Energy =       0.0000000000000000
+    Empirical Dispersion Energy =           0.0000000000000000
+    PCM Polarization Energy =               0.0000000000000000
+    EFP Energy =                            0.0000000000000000
+    Total Energy =                       -450.8444304713912061
+
+
+  Saving occupied orbitals to File 180.
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:47:10 2016
+Module time:
+	user time   =       8.70 seconds =       0.15 minutes
+	system time =       0.20 seconds =       0.00 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =      99.59 seconds =       1.66 minutes
+	system time =       3.11 seconds =       0.05 minutes
+	total time  =         30 seconds =       0.50 minutes
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 Bohr
+
+Properties computed using the SCF density matrix
+
+  Nuclear Dipole Moment: (a.u.)
+     X:    -6.6385      Y:     2.4513      Z:     2.0671
+
+  Electronic Dipole Moment: (a.u.)
+     X:     5.7884      Y:    -1.6831      Z:    -1.4277
+
+  Dipole Moment: (a.u.)
+     X:    -0.8501      Y:     0.7682      Z:     0.6393     Total:     1.3121
+
+  Dipole Moment: (Debye)
+     X:    -2.1608      Y:     1.9525      Z:     1.6250     Total:     3.3349
+
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:47:10 2016
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.562587849474    -0.222644990750     1.014302007003     1.007825032070
+           O         -1.948629017425    -0.367347119778     0.319517011568    15.994914619560
+           C         -1.015934946673     0.658345338594     0.265087112247    12.000000000000
+           C          0.339351558319     0.075332856328    -0.060435840663    12.000000000000
+           H         -1.257940082378     1.375935333746    -0.510087778884     1.007825032070
+           H         -0.916958241552     1.183556048510     1.206967495537     1.007825032070
+           F          0.336298360603    -0.573417150112    -1.202043390143    18.998403224000
+           F          1.225905256510     1.047297694454    -0.157407743263    18.998403224000
+           F          0.757028797016    -0.751987327826     0.870408225720    18.998403224000
+
+  Nuclear repulsion =  277.646369568575039
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Schwarz Cutoff:          0E+00
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.000123791458     0.000143231635     0.000055558483
+       2        0.000376184478     0.000172251881    -0.000036281947
+       3       -0.000057962334    -0.000041050586    -0.000210298394
+       4        0.000129100378     0.000171168807     0.001051293876
+       5       -0.000206896500     0.000061451837     0.000072901477
+       6       -0.000156027078    -0.000046703815     0.000029508470
+       7        0.000218993202     0.000025230486    -0.000744604467
+       8       -0.000365001362    -0.000552638249    -0.000256486816
+       9        0.000185400667     0.000067058009     0.000038409321
+
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:47:13 2016
+Module time:
+	user time   =      11.90 seconds =       0.20 minutes
+	system time =       0.34 seconds =       0.01 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =     111.58 seconds =       1.86 minutes
+	system time =       3.46 seconds =       0.06 minutes
+	total time  =         33 seconds =       0.55 minutes
+
+			-----------------------------------------
+			 OPTKING 2.0: for geometry optimizations 
+			  - R.A. King,  Bethel University        
+			-----------------------------------------
+
+	Previous internal coordinate definitions found.
+	---Fragment 1 Geometry and Gradient---
+	 H          -4.8425892270       -0.4207380574        1.9167530093
+	 O          -3.6823751775       -0.6941854521        0.6037996467
+	 C          -1.9198388180        1.2440923908        0.5009420435
+	 C           0.6412815080        0.1423584673       -0.1142071875
+	 H          -2.3771622473        2.6001409573       -0.9639262058
+	 H          -1.7327999518        2.2365967946        2.2808380179
+	 F           0.6355118005       -1.0836013736       -2.2715328072
+	 F           2.3166251997        1.9791058221       -0.2974575260
+	 F           1.4305771011       -1.4210501050        1.6448331704
+	            -0.0001237915        0.0001432316        0.0000555585
+	             0.0003761845        0.0001722519       -0.0000362819
+	            -0.0000579623       -0.0000410506       -0.0002102984
+	             0.0001291004        0.0001711688        0.0010512939
+	            -0.0002068965        0.0000614518        0.0000729015
+	            -0.0001560271       -0.0000467038        0.0000295085
+	             0.0002189932        0.0000252305       -0.0007446045
+	            -0.0003650014       -0.0005526382       -0.0002564868
+	             0.0001854007        0.0000670580        0.0000384093
+
+	---Fragment 1 Intrafragment Coordinates---
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.773335	       0.938408
+	 R(2,3)           =         2.621838	       1.387417
+	 R(3,4)           =         2.855094	       1.510851
+	 R(3,5)           =         2.047890	       1.083696
+	 R(3,6)           =         2.046479	       1.082950
+	 R(4,7)           =         2.481343	       1.313070
+	 R(4,8)           =         2.492789	       1.319127
+	 R(4,9)           =         2.482228	       1.313539
+	 B(1,2,3)         =         1.933576	     110.785716
+	 B(2,3,4)         =         1.903088	     109.038883
+	 B(2,3,5)         =         1.947082	     111.559554
+	 B(2,3,6)         =         1.966934	     112.697023
+	 B(3,4,7)         =         1.956153	     112.079337
+	 B(3,4,8)         =         1.911750	     109.535218
+	 B(3,4,9)         =         1.955839	     112.061343
+	 B(4,3,5)         =         1.877296	     107.561150
+	 B(4,3,6)         =         1.867691	     107.010789
+	 B(5,3,6)         =         1.898001	     108.747474
+	 B(7,4,8)         =         1.877265	     107.559340
+	 B(7,4,9)         =         1.881438	     107.798473
+	 B(8,4,9)         =         1.878080	     107.606065
+	 D(1,2,3,4)       =         2.466926	     141.344476
+	*D(1,2,3,5)       =        -1.745329	     -99.999981
+	 D(1,2,3,6)       =         0.395713	      22.672676
+	 D(2,3,4,7)       =         1.024178	      58.681101
+	 D(2,3,4,8)       =         3.106353	     177.980908
+	 D(2,3,4,9)       =        -1.093836	     -62.672210
+	 D(5,3,4,7)       =        -1.089897	     -62.446492
+	 D(5,3,4,8)       =         0.992278	      56.853316
+	 D(5,3,4,9)       =         3.075274	     176.200198
+	 D(6,3,4,7)       =        -3.126734	    -179.148634
+	 D(6,3,4,8)       =        -1.044559	     -59.848827
+	 D(6,3,4,9)       =         1.038437	      59.498055
+
+	Current energy   :      -450.8444304714
+
+	Energy change for the previous step:
+		Projected    :        -0.0000508703
+		Actual       :        -0.0000122472
+	Energy ratio indicates iffy step: Trust radius decreased to 2.500e-01.
+
+
+	Performing BFGS update.
+	Previous computed or guess Hessian on step 1.
+	Steps to be used in Hessian update: 4 3
+	Taking RFO optimization step.
+	Going to follow RFO solution 1.
+	Using RFO vector 1.
+	Norm of target step-size    0.00571
+	Projected energy change by RFO approximation:         0.0000007370
+
+	Back-transformation to cartesian coordinates...
+	Could not converge backtransformation.
+	Using first guess instead.
+
+	Back-transformation to cartesian coordinates to adjust frozen coordinates...
+	Successfully converged to displaced geometry.
+
+	--- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	 ---------------------------------------------------------------------------
+	   Coordinate                Previous        Force       Change         New 
+	   ----------                --------       ------       ------       ------
+	    1 R(1,2)          =      0.938408    -0.001188    -0.000045     0.938363
+	    2 R(2,3)          =      1.387417     0.003313     0.000257     1.387674
+	    3 R(3,4)          =      1.510851    -0.002007    -0.000216     1.510635
+	    4 R(3,5)          =      1.083696    -0.000286    -0.000025     1.083671
+	    5 R(3,6)          =      1.082950     0.000093    -0.000012     1.082938
+	    6 R(4,7)          =      1.313070    -0.005227    -0.000670     1.312400
+	    7 R(4,8)          =      1.319127     0.005220     0.000616     1.319743
+	    8 R(4,9)          =      1.313539    -0.000362     0.000152     1.313690
+	    9 B(1,2,3)        =    110.785716     0.000010     0.034419   110.820135
+	   10 B(2,3,4)        =    109.038883     0.000001    -0.000281   109.038601
+	   11 B(2,3,5)        =    111.559554     0.000005     0.022268   111.581822
+	   12 B(2,3,6)        =    112.697023     0.000007     0.030362   112.727384
+	   13 B(3,4,7)        =    112.079337    -0.000008     0.012780   112.092117
+	   14 B(3,4,8)        =    109.535218    -0.000009     0.002420   109.537638
+	   15 B(3,4,9)        =    112.061343    -0.000019    -0.096311   111.965032
+	   16 B(4,3,5)        =    107.561150    -0.000007    -0.032151   107.528999
+	   17 B(4,3,6)        =    107.010789    -0.000009    -0.030144   106.980645
+	   18 B(5,3,6)        =    108.747474     0.000000     0.004711   108.752184
+	   19 B(7,4,8)        =    107.559340     0.000031     0.129381   107.688721
+	   20 B(7,4,9)        =    107.798473    -0.000002    -0.044910   107.753564
+	   21 B(8,4,9)        =    107.606065     0.000010     0.004903   107.610968
+	   22 D(1,2,3,4)      =    141.344476     0.000001     0.026349   141.370824
+	   23 *D(1,2,3,5)     =    -99.999981     0.000000    -0.000000   -99.999981
+	   24 D(1,2,3,6)      =     22.672676     0.000002     0.045325    22.718001
+	   25 D(2,3,4,7)      =     58.681101    -0.000004    -0.137726    58.543375
+	   26 D(2,3,4,8)      =    177.980908     0.000002     0.034061   178.014969
+	   27 D(2,3,4,9)      =    -62.672210     0.000001    -0.019265   -62.691474
+	   28 D(5,3,4,7)      =    -62.446492    -0.000005    -0.145304   -62.591796
+	   29 D(5,3,4,8)      =     56.853316     0.000002     0.026483    56.879799
+	   30 D(5,3,4,9)      =    176.200198     0.000000    -0.026843   176.173355
+	   31 D(6,3,4,7)      =   -179.148634    -0.000003    -0.119372  -179.268007
+	   32 D(6,3,4,8)      =    -59.848827     0.000003     0.052415   -59.796412
+	   33 D(6,3,4,9)      =     59.498055     0.000002    -0.000911    59.497144
+	 ---------------------------------------------------------------------------
+	Successfully symmetrized geometry.
+
+  ==> Convergence Check <==
+
+  Measures of convergence in internal coordinates in au.
+  Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+  ---------------------------------------------------------------------------------------------
+   Step     Total Energy     Delta E     MAX Force     RMS Force      MAX Disp      RMS Disp   
+  ---------------------------------------------------------------------------------------------
+    Convergence Criteria    1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+  ---------------------------------------------------------------------------------------------
+      5    -450.84443047   -1.22e-05      6.34e-04      2.22e-04 o    2.54e-03      9.93e-04 o  ~
+  ---------------------------------------------------------------------------------------------
+
+	Writing optimization data to binary file.
+	Structure for next step:
+	Cartesian Geometry (in Angstrom)
+	    H    -2.5626767747  -0.2235885711   1.0139712432
+	    O    -1.9484877585  -0.3675720189   0.3193013623
+	    C    -1.0157429977   0.6584327146   0.2650687898
+	    C     0.3392836381   0.0758075992  -0.0612274923
+	    H    -1.2575101480   1.3763814179  -0.5098125187
+	    H    -0.9158353688   1.1832705847   1.2070445933
+	    F     0.3354310258  -0.5745201175  -1.2011632585
+	    F     1.2263098633   1.0482626620  -0.1573398479
+	    F     0.7557623554  -0.7514035877   0.8704642279
+			--------------------------
+			 OPTKING Finished Execution 
+			--------------------------
+
+    Structure for next step:
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -2.562400528733    -0.223696830905     1.013911973943
+    O           -1.948211512543    -0.367680278729     0.319242093051
+    C           -1.015466751711     0.658324454849     0.265009520524
+    C            0.339559884110     0.075699339406    -0.061286761583
+    H           -1.257233901969     1.376273158094    -0.509871787938
+    H           -0.915559122794     1.183162324949     1.206985324062
+    F            0.335707271793    -0.574628377307    -1.201222527799
+    F            1.226586109249     1.048154402255    -0.157399117183
+    F            0.756038601429    -0.751511847505     0.870404958621
+
+gradient() will perform analytic gradient computation.
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:47:13 2016
+
+
+         ---------------------------------------------------------
+                                   SCF
+            by Justin Turney, Rob Parrish, and Andy Simmonett
+                              RHF Reference
+                        4 Threads,   2000 MiB Core
+         ---------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.562400528733    -0.223696830905     1.013911973943     1.007825032070
+           O         -1.948211512543    -0.367680278729     0.319242093051    15.994914619560
+           C         -1.015466751711     0.658324454849     0.265009520524    12.000000000000
+           C          0.339559884110     0.075699339406    -0.061286761583    12.000000000000
+           H         -1.257233901969     1.376273158094    -0.509871787938     1.007825032070
+           H         -0.915559122794     1.183162324949     1.206985324062     1.007825032070
+           F          0.335707271793    -0.574628377307    -1.201222527799    18.998403224000
+           F          1.226586109249     1.048154402255    -0.157399117183    18.998403224000
+           F          0.756038601429    -0.751511847505     0.870404958621    18.998403224000
+
+  Running in c1 symmetry.
+
+  Rotational constants: A =      0.18392  B =      0.09674  C =      0.09537 [cm^-1]
+  Rotational constants: A =   5513.74408  B =   2900.10835  C =   2858.98035 [MHz]
+  Nuclear repulsion =  277.653325807703709
+
+  Charge       = 0
+  Multiplicity = 1
+  Electrons    = 50
+  Nalpha       = 25
+  Nbeta        = 25
+
+  ==> Algorithm <==
+
+  SCF Algorithm Type is DF.
+  DIIS enabled.
+  MOM disabled.
+  Fractional occupation disabled.
+  Guess Type is READ.
+  Energy threshold   = 1.00e-08
+  Density threshold  = 1.00e-08
+  Integral threshold = 0.00e+00
+
+  ==> Primary Basis <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> Pre-Iterations <==
+
+   -------------------------------------------------------
+    Irrep   Nso     Nmo     Nalpha   Nbeta   Ndocc  Nsocc
+   -------------------------------------------------------
+     A        222     222       0       0       0       0
+   -------------------------------------------------------
+    Total     222     222      25      25      25       0
+   -------------------------------------------------------
+
+  ==> Integral Setup <==
+
+  ==> DFJK: Density-Fitted J/K Matrices <==
+
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Algorithm:                Core
+    Integral Cache:           NONE
+    Schwarz Cutoff:          1E-12
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+  Minimum eigenvalue in the overlap matrix is 1.0659838693E-03.
+  Using Symmetric Orthogonalization.
+  SCF Guess: Reading in previously saved MOs, projecting if necessary.
+
+  Using orbitals from previous SCF, no projection.
+  Recomputing DOCC and SOCC from number of alpha and beta electrons from previous calculation.
+              A 
+    DOCC [    25 ]
+
+  ==> Iterations <==
+
+                           Total Energy        Delta E     RMS |[F,P]|
+
+   @DF-RHF iter   0:  -450.84442901415434   -4.50844e+02   2.08847e-05 
+   @DF-RHF iter   1:  -450.84443256997940   -3.55583e-06   3.95621e-06 
+   @DF-RHF iter   2:  -450.84443294039454   -3.70415e-07   2.16388e-06 DIIS
+   @DF-RHF iter   3:  -450.84443301702220   -7.66277e-08   6.62134e-07 DIIS
+   @DF-RHF iter   4:  -450.84443303561227   -1.85901e-08   1.29927e-07 DIIS
+   @DF-RHF iter   5:  -450.84443303636965   -7.57382e-10   3.21911e-08 DIIS
+   @DF-RHF iter   6:  -450.84443303641297   -4.33147e-11   9.31746e-09 DIIS
+
+  ==> Post-Iterations <==
+
+    Orbital Energies (a.u.)
+    -----------------------
+
+    Doubly Occupied:                                                      
+
+       1A    -26.333792     2A    -26.330759     3A    -26.330047  
+       4A    -20.582419     5A    -11.489989     6A    -11.310214  
+       7A     -1.741840     8A     -1.638236     9A     -1.636721  
+      10A     -1.405929    11A     -1.050473    12A     -0.923905  
+      13A     -0.833010    14A     -0.831449    15A     -0.790326  
+      16A     -0.741422    17A     -0.713546    18A     -0.703770  
+      19A     -0.671062    20A     -0.657848    21A     -0.642592  
+      22A     -0.640551    23A     -0.600429    24A     -0.533261  
+      25A     -0.483039  
+
+    Virtual:                                                              
+
+      26A      0.125720    27A      0.175667    28A      0.199003  
+      29A      0.284748    30A      0.306808    31A      0.345904  
+      32A      0.362442    33A      0.407879    34A      0.483805  
+      35A      0.487045    36A      0.515734    37A      0.525850  
+      38A      0.535624    39A      0.570507    40A      0.591896  
+      41A      0.611238    42A      0.635921    43A      0.646676  
+      44A      0.682546    45A      0.721536    46A      0.766792  
+      47A      0.806130    48A      0.809356    49A      0.857272  
+      50A      0.895490    51A      0.925937    52A      0.936710  
+      53A      0.996461    54A      1.036146    55A      1.053059  
+      56A      1.087538    57A      1.104075    58A      1.127118  
+      59A      1.137622    60A      1.146875    61A      1.168766  
+      62A      1.172732    63A      1.212174    64A      1.288557  
+      65A      1.323886    66A      1.342839    67A      1.358778  
+      68A      1.397521    69A      1.411085    70A      1.469715  
+      71A      1.485258    72A      1.526423    73A      1.543108  
+      74A      1.604691    75A      1.724805    76A      1.763493  
+      77A      1.995635    78A      2.014774    79A      2.052153  
+      80A      2.120924    81A      2.169876    82A      2.216868  
+      83A      2.229448    84A      2.244727    85A      2.257939  
+      86A      2.267186    87A      2.283134    88A      2.350300  
+      89A      2.369536    90A      2.387730    91A      2.416193  
+      92A      2.472553    93A      2.505938    94A      2.606905  
+      95A      2.655367    96A      2.699958    97A      2.724398  
+      98A      2.786924    99A      2.828962   100A      2.835265  
+     101A      2.867050   102A      2.886157   103A      3.006636  
+     104A      3.055987   105A      3.150053   106A      3.188559  
+     107A      3.231450   108A      3.254961   109A      3.270120  
+     110A      3.292721   111A      3.326478   112A      3.341193  
+     113A      3.362744   114A      3.410282   115A      3.432816  
+     116A      3.445910   117A      3.509458   118A      3.512188  
+     119A      3.619665   120A      3.637673   121A      3.656733  
+     122A      3.693218   123A      3.706252   124A      3.744730  
+     125A      3.757981   126A      3.822063   127A      3.850699  
+     128A      3.900628   129A      3.907262   130A      3.944319  
+     131A      3.957092   132A      3.984446   133A      4.076754  
+     134A      4.120771   135A      4.154903   136A      4.172899  
+     137A      4.198817   138A      4.271252   139A      4.290510  
+     140A      4.343804   141A      4.367522   142A      4.473301  
+     143A      4.508396   144A      4.536004   145A      4.563048  
+     146A      4.595882   147A      4.658334   148A      4.776306  
+     149A      4.918420   150A      5.075824   151A      5.121817  
+     152A      5.154055   153A      5.230116   154A      5.280652  
+     155A      5.340040   156A      5.369640   157A      5.386648  
+     158A      5.438595   159A      5.493507   160A      5.504735  
+     161A      5.555239   162A      5.594680   163A      5.669564  
+     164A      5.830873   165A      6.017252   166A      6.062162  
+     167A      6.122893   168A      6.250264   169A      6.445943  
+     170A      6.565420   171A      6.593515   172A      6.659514  
+     173A      7.024491   174A      7.135232   175A      7.226314  
+     176A      7.234207   177A      7.320022   178A      7.349810  
+     179A      7.362176   180A      7.364058   181A      7.367670  
+     182A      7.368624   183A      7.371517   184A      7.379002  
+     185A      7.384431   186A      7.397370   187A      7.491384  
+     188A      7.525767   189A      7.531776   190A      7.541773  
+     191A      7.608893   192A      7.638687   193A      7.639962  
+     194A      7.671358   195A      7.885284   196A      7.952573  
+     197A      7.970311   198A      7.990931   199A      8.107635  
+     200A      8.177091   201A      8.186217   202A      8.908969  
+     203A      8.910393   204A      8.938556   205A      9.033969  
+     206A      9.037789   207A      9.090259   208A      9.212395  
+     209A      9.330186   210A      9.412111   211A      9.416283  
+     212A      9.531856   213A      9.685058   214A      9.687239  
+     215A      9.743635   216A      9.746166   217A     11.172712  
+     218A     12.265888   219A     12.446615   220A     12.674632  
+     221A     13.176544   222A     13.805144  
+
+    Final Occupation by Irrep:
+              A 
+    DOCC [    25 ]
+
+  Energy converged.
+
+  @DF-RHF Final Energy:  -450.84443303641297
+
+   => Energetics <=
+
+    Nuclear Repulsion Energy =            277.6533258077037090
+    One-Electron Energy =               -1177.7622582582866926
+    Two-Electron Energy =                 449.2644994141699044
+    DFT Exchange-Correlation Energy =       0.0000000000000000
+    Empirical Dispersion Energy =           0.0000000000000000
+    PCM Polarization Energy =               0.0000000000000000
+    EFP Energy =                            0.0000000000000000
+    Total Energy =                       -450.8444330364130792
+
+
+  Saving occupied orbitals to File 180.
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:47:16 2016
+Module time:
+	user time   =       7.97 seconds =       0.13 minutes
+	system time =       0.31 seconds =       0.01 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =     120.35 seconds =       2.01 minutes
+	system time =       3.79 seconds =       0.06 minutes
+	total time  =         36 seconds =       0.60 minutes
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 Bohr
+
+Properties computed using the SCF density matrix
+
+  Nuclear Dipole Moment: (a.u.)
+     X:    -6.6355      Y:     2.4502      Z:     2.0661
+
+  Electronic Dipole Moment: (a.u.)
+     X:     5.7862      Y:    -1.6828      Z:    -1.4295
+
+  Dipole Moment: (a.u.)
+     X:    -0.8493      Y:     0.7674      Z:     0.6366     Total:     1.3098
+
+  Dipole Moment: (Debye)
+     X:    -2.1587      Y:     1.9505      Z:     1.6180     Total:     3.3291
+
+
+*** tstart() called on cx1-27-3-4
+*** at Sat Sep 10 15:47:16 2016
+
+
+         ------------------------------------------------------------
+                                   SCF GRAD                          
+                          Rob Parrish, Justin Turney,                
+                       Andy Simmonett, and Alex Sokolov              
+         ------------------------------------------------------------
+
+  ==> Geometry <==
+
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+       Center              X                  Y                   Z               Mass       
+    ------------   -----------------  -----------------  -----------------  -----------------
+           H         -2.562400528733    -0.223696830905     1.013911973943     1.007825032070
+           O         -1.948211512543    -0.367680278729     0.319242093051    15.994914619560
+           C         -1.015466751711     0.658324454849     0.265009520524    12.000000000000
+           C          0.339559884110     0.075699339406    -0.061286761583    12.000000000000
+           H         -1.257233901969     1.376273158094    -0.509871787938     1.007825032070
+           H         -0.915559122794     1.183162324949     1.206985324062     1.007825032070
+           F          0.335707271793    -0.574628377307    -1.201222527799    18.998403224000
+           F          1.226586109249     1.048154402255    -0.157399117183    18.998403224000
+           F          0.756038601429    -0.751511847505     0.870404958621    18.998403224000
+
+  Nuclear repulsion =  277.653325807703709
+
+  ==> Basis Set <==
+
+  Basis Set: CC-PVTZ
+    Number of shells: 78
+    Number of basis function: 222
+    Number of Cartesian functions: 255
+    Spherical Harmonics?: true
+    Max angular momentum: 3
+
+  ==> DFJKGrad: Density-Fitted SCF Gradients <==
+
+    Gradient:                    1
+    J tasked:                  Yes
+    K tasked:                  Yes
+    wK tasked:                  No
+    OpenMP threads:              4
+    Integrals threads:           4
+    Memory (MB):              1430
+    Schwarz Cutoff:          0E+00
+    Fitting Condition:       1E-12
+
+   => Auxiliary Basis Set <=
+
+  Basis Set: 
+    Number of shells: 180
+    Number of basis function: 564
+    Number of Cartesian functions: 681
+    Spherical Harmonics?: true
+    Max angular momentum: 4
+
+
+  -Total Gradient:
+     Atom            X                  Y                   Z
+    ------   -----------------  -----------------  -----------------
+       1       -0.000133581566     0.000061014903    -0.000005736098
+       2        0.000152300533     0.000026335011     0.000079574425
+       3        0.000046066807    -0.000156246955    -0.000097338741
+       4        0.000173694230     0.000128000988     0.000142405904
+       5       -0.000056852592     0.000039544405     0.000059337555
+       6       -0.000058968321    -0.000027091063     0.000017771890
+       7       -0.000060034405    -0.000160844085    -0.000183428388
+       8        0.000041117118     0.000088923482     0.000006343390
+       9       -0.000103741805     0.000000363311    -0.000018929931
+
+
+*** tstop() called on cx1-27-3-4 at Sat Sep 10 15:47:19 2016
+Module time:
+	user time   =      12.53 seconds =       0.21 minutes
+	system time =       0.33 seconds =       0.01 minutes
+	total time  =          3 seconds =       0.05 minutes
+Total time:
+	user time   =     132.96 seconds =       2.22 minutes
+	system time =       4.12 seconds =       0.07 minutes
+	total time  =         39 seconds =       0.65 minutes
+
+			-----------------------------------------
+			 OPTKING 2.0: for geometry optimizations 
+			  - R.A. King,  Bethel University        
+			-----------------------------------------
+
+	Previous internal coordinate definitions found.
+	---Fragment 1 Geometry and Gradient---
+	 H          -4.8422352421       -0.4227257472        1.9160159536
+	 O          -3.6815862076       -0.6948150313        0.6032801260
+	 C          -1.9189540578        1.2440529262        0.5007954164
+	 C           0.6416751867        0.1430510199       -0.1158151950
+	 H          -2.3758277597        2.6007793528       -0.9635180421
+	 H          -1.7301560005        2.2358527649        2.2808717089
+	 F           0.6343948045       -1.0858902613       -2.2699816022
+	 F           2.3179118249        1.9807247652       -0.2974412250
+	 F           1.4287059026       -1.4201515774        1.6448269965
+	            -0.0001335816        0.0000610149       -0.0000057361
+	             0.0001523005        0.0000263350        0.0000795744
+	             0.0000460668       -0.0001562470       -0.0000973387
+	             0.0001736942        0.0001280010        0.0001424059
+	            -0.0000568526        0.0000395444        0.0000593376
+	            -0.0000589683       -0.0000270911        0.0000177719
+	            -0.0000600344       -0.0001608441       -0.0001834284
+	             0.0000411171        0.0000889235        0.0000063434
+	            -0.0001037418        0.0000003633       -0.0000189299
+
+	---Fragment 1 Intrafragment Coordinates---
+	 - Coordinate -           - BOHR/RAD -       - ANG/DEG -
+	 R(1,2)           =         1.773250	       0.938363
+	 R(2,3)           =         2.622324	       1.387674
+	 R(3,4)           =         2.854687	       1.510635
+	 R(3,5)           =         2.047841	       1.083671
+	 R(3,6)           =         2.046456	       1.082938
+	 R(4,7)           =         2.480077	       1.312400
+	 R(4,8)           =         2.493953	       1.319743
+	 R(4,9)           =         2.482515	       1.313690
+	 B(1,2,3)         =         1.934176	     110.820135
+	 B(2,3,4)         =         1.903083	     109.038601
+	 B(2,3,5)         =         1.947470	     111.581822
+	 B(2,3,6)         =         1.967464	     112.727384
+	 B(3,4,7)         =         1.956377	     112.092117
+	 B(3,4,8)         =         1.911792	     109.537638
+	 B(3,4,9)         =         1.954158	     111.965032
+	 B(4,3,5)         =         1.876735	     107.528999
+	 B(4,3,6)         =         1.867164	     106.980645
+	 B(5,3,6)         =         1.898084	     108.752184
+	 B(7,4,8)         =         1.879523	     107.688721
+	 B(7,4,9)         =         1.880654	     107.753564
+	 B(8,4,9)         =         1.878166	     107.610968
+	 D(1,2,3,4)       =         2.467386	     141.370824
+	*D(1,2,3,5)       =        -1.745329	     -99.999981
+	 D(1,2,3,6)       =         0.396504	      22.718001
+	 D(2,3,4,7)       =         1.021775	      58.543375
+	 D(2,3,4,8)       =         3.106947	     178.014969
+	 D(2,3,4,9)       =        -1.094173	     -62.691474
+	 D(5,3,4,7)       =        -1.092433	     -62.591796
+	 D(5,3,4,8)       =         0.992740	      56.879799
+	 D(5,3,4,9)       =         3.074805	     176.173355
+	 D(6,3,4,7)       =        -3.128817	    -179.268007
+	 D(6,3,4,8)       =        -1.043644	     -59.796412
+	 D(6,3,4,9)       =         1.038421	      59.497144
+
+	Current energy   :      -450.8444330364
+
+	Energy change for the previous step:
+		Projected    :         0.0000007370
+		Actual       :        -0.0000025650
+
+	Performing BFGS update.
+	Previous computed or guess Hessian on step 1.
+	Steps to be used in Hessian update: 5 4
+	Taking RFO optimization step.
+	Going to follow RFO solution 1.
+	Using RFO vector 1.
+	Norm of target step-size    0.00145
+	Projected energy change by RFO approximation:        -0.0000004040
+
+	Back-transformation to cartesian coordinates...
+	Successfully converged to displaced geometry.
+
+	Back-transformation to cartesian coordinates to adjust frozen coordinates...
+	Successfully converged to displaced geometry.
+
+	--- Internal Coordinate Step in ANG or DEG, aJ/ANG or AJ/DEG ---
+	 ---------------------------------------------------------------------------
+	   Coordinate                Previous        Force       Change         New 
+	   ----------                --------       ------       ------       ------
+	    1 R(1,2)          =      0.938363    -0.000762    -0.000072     0.938291
+	    2 R(2,3)          =      1.387674     0.000612     0.000105     1.387780
+	    3 R(3,4)          =      1.510635    -0.000293    -0.000047     1.510588
+	    4 R(3,5)          =      1.083671     0.000029     0.000011     1.083682
+	    5 R(3,6)          =      1.082938     0.000026     0.000004     1.082942
+	    6 R(4,7)          =      1.312400    -0.001971    -0.000295     1.312105
+	    7 R(4,8)          =      1.319743    -0.000764     0.000021     1.319764
+	    8 R(4,9)          =      1.313690     0.000383     0.000065     1.313756
+	    9 B(1,2,3)        =    110.820135    -0.000002    -0.000858   110.819277
+	   10 B(2,3,4)        =    109.038601    -0.000004    -0.012579   109.026023
+	   11 B(2,3,5)        =    111.581822     0.000001     0.010301   111.592123
+	   12 B(2,3,6)        =    112.727384     0.000005     0.022066   112.749450
+	   13 B(3,4,7)        =    112.092117     0.000004     0.018207   112.110324
+	   14 B(3,4,8)        =    109.537638    -0.000000    -0.009601   109.528036
+	   15 B(3,4,9)        =    111.965032     0.000010     0.023134   111.988166
+	   16 B(4,3,5)        =    107.528999     0.000002     0.004764   107.533764
+	   17 B(4,3,6)        =    106.980645    -0.000003    -0.021635   106.959010
+	   18 B(5,3,6)        =    108.752184    -0.000001    -0.004951   108.747233
+	   19 B(7,4,8)        =    107.688721    -0.000005    -0.016400   107.672321
+	   20 B(7,4,9)        =    107.753564    -0.000003     0.004686   107.758250
+	   21 B(8,4,9)        =    107.610968    -0.000006    -0.022988   107.587980
+	   22 D(1,2,3,4)      =    141.370824    -0.000000    -0.004123   141.366702
+	   23 *D(1,2,3,5)     =    -99.999981     0.000000    -0.000000   -99.999981
+	   24 D(1,2,3,6)      =     22.718001     0.000001     0.017573    22.735574
+	   25 D(2,3,4,7)      =     58.543375     0.000001     0.017891    58.561266
+	   26 D(2,3,4,8)      =    178.014969    -0.000000     0.002532   178.017501
+	   27 D(2,3,4,9)      =    -62.691474    -0.000001    -0.017921   -62.709396
+	   28 D(5,3,4,7)      =    -62.591796     0.000001     0.009911   -62.581885
+	   29 D(5,3,4,8)      =     56.879799    -0.000000    -0.005448    56.874351
+	   30 D(5,3,4,9)      =    176.173355    -0.000001    -0.025901   176.147454
+	   31 D(6,3,4,7)      =   -179.268007     0.000001     0.024245  -179.243762
+	   32 D(6,3,4,8)      =    -59.796412     0.000000     0.008886   -59.787526
+	   33 D(6,3,4,9)      =     59.497144    -0.000000    -0.011567    59.485577
+	 ---------------------------------------------------------------------------
+	Successfully symmetrized geometry.
+
+  ==> Convergence Check <==
+
+  Measures of convergence in internal coordinates in au.
+  Criteria marked as inactive (o), active & met (*), and active & unmet ( ).
+  ---------------------------------------------------------------------------------------------
+   Step     Total Energy     Delta E     MAX Force     RMS Force      MAX Disp      RMS Disp   
+  ---------------------------------------------------------------------------------------------
+    Convergence Criteria    1.00e-06 *    3.00e-04 *             o    1.20e-03 *             o
+  ---------------------------------------------------------------------------------------------
+      6    -450.84443304   -2.57e-06      2.39e-04 *    6.45e-05 o    5.58e-04 *    2.53e-04 o  ~
+  ---------------------------------------------------------------------------------------------
+
+
+  **** Optimization is complete! (in 6 steps) ****
+
+  ==> Optimization Summary <==
+
+  Measures of convergence in internal coordinates in au.
+  --------------------------------------------------------------------------------------------------------------- ~
+   Step         Total Energy             Delta E       MAX Force       RMS Force        MAX Disp        RMS Disp  ~
+  --------------------------------------------------------------------------------------------------------------- ~
+      1    -450.843011262382   -450.843011262382      0.01213898      0.00396507      0.14973485      0.06420996  ~
+      2    -450.821316124125      0.021695138257      0.07003111      0.02380657      0.13731809      0.05288338  ~
+      3    -450.844131606496     -0.022815482371      0.00900413      0.00253901      0.03682538      0.01463159  ~
+      4    -450.844418224205     -0.000286617709      0.00203516      0.00054165      0.01072698      0.00400472  ~
+      5    -450.844430471391     -0.000012247186      0.00063440      0.00022221      0.00253604      0.00099340  ~
+      6    -450.844433036413     -0.000002565022      0.00023920      0.00006445      0.00055818      0.00025266  ~
+  --------------------------------------------------------------------------------------------------------------- ~
+
+	Writing optimization data to binary file.
+	Final energy is   -450.8444330364130
+	Final (previous) structure:
+	Cartesian Geometry (in Angstrom)
+	    H    -2.5624005287  -0.2236968309   1.0139119739
+	    O    -1.9482115125  -0.3676802787   0.3192420931
+	    C    -1.0154667517   0.6583244548   0.2650095205
+	    C     0.3395598841   0.0756993394  -0.0612867616
+	    H    -1.2572339020   1.3762731581  -0.5098717879
+	    H    -0.9155591228   1.1831623249   1.2069853241
+	    F     0.3357072718  -0.5746283773  -1.2012225278
+	    F     1.2265861092   1.0481544023  -0.1573991172
+	    F     0.7560386014  -0.7515118475   0.8704049586
+	Saving final (previous) structure.
+			--------------------------
+			 OPTKING Finished Execution 
+			--------------------------
+
+    Final optimized geometry and variables:
+    Molecular point group: c1
+    Full point group: C1
+
+    Geometry (in Angstrom), charge = 0, multiplicity = 1:
+
+    H           -2.562400528733    -0.223696830905     1.013911973943
+    O           -1.948211512543    -0.367680278729     0.319242093051
+    C           -1.015466751711     0.658324454849     0.265009520524
+    C            0.339559884110     0.075699339406    -0.061286761583
+    H           -1.257233901969     1.376273158094    -0.509871787938
+    H           -0.915559122794     1.183162324949     1.206985324062
+    F            0.335707271793    -0.574628377307    -1.201222527799
+    F            1.226586109249     1.048154402255    -0.157399117183
+    F            0.756038601429    -0.751511847505     0.870404958621
+
+	Cleaning optimization helper files.
+
+
+Properties will be evaluated at   0.000000,   0.000000,   0.000000 Bohr
+
+Properties computed using the  density matrix
+
+  Nuclear Dipole Moment: (a.u.)
+     X:    -6.6355      Y:     2.4502      Z:     2.0661
+
+  Electronic Dipole Moment: (a.u.)
+     X:     5.7862      Y:    -1.6828      Z:    -1.4295
+
+  Dipole Moment: (a.u.)
+     X:    -0.8493      Y:     0.7674      Z:     0.6366     Total:     1.3098
+
+  Dipole Moment: (Debye)
+     X:    -2.1587      Y:     1.9505      Z:     1.6180     Total:     3.3291
+
+  Quadrupole Moment: (Debye Ang)
+    XX:   -30.0007     YY:   -33.1174     ZZ:   -31.2764
+    XY:    -2.8464     XZ:    -3.8657     YZ:     0.3710
+
+  Traceless Quadrupole Moment: (Debye Ang)
+    XX:     1.4641     YY:    -1.6525     ZZ:     0.1884
+    XY:    -2.8464     XZ:    -3.8657     YZ:     0.3710
+
+  Mulliken Charges: (a.u.)
+   Center  Symbol    Alpha    Beta     Spin     Total
+       1     H     0.38711  0.38711  0.00000  0.22577
+       2     O     4.18912  4.18912  0.00000 -0.37824
+       3     C     2.98735  2.98735  0.00000  0.02530
+       4     C     2.67658  2.67658  0.00000  0.64683
+       5     H     0.46256  0.46256  0.00000  0.07487
+       6     H     0.46404  0.46404  0.00000  0.07191
+       7     F     4.60830  4.60830  0.00000 -0.21661
+       8     F     4.61453  4.61453  0.00000 -0.22906
+       9     F     4.61040  4.61040  0.00000 -0.22079
+
+   Total alpha = 25.00000, Total beta = 25.00000, Total charge =  0.00000
+
+
+*** Psi4 exiting successfully. Buy a developer a beer!

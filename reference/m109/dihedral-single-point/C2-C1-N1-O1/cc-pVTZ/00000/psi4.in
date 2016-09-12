@@ -1,0 +1,44 @@
+set {
+	reference rhf
+	basis cc-pvtz
+}
+
+
+set_num_threads( 4 )
+memory 2 gb
+
+molecule MOL {
+0 1
+
+O	 -2.081319	 -0.951530	 -0.502732
+N	 -1.613558	 0.006676	 0.014756
+C	 -0.329345	 -0.171618	 0.743966
+O	 -2.068523	 1.100482	 -0.024385
+C	 0.110632	 1.161022	 1.336907
+H	 0.376975	 -0.540194	 0.018926
+H	 -0.519121	 -0.907144	 1.507653
+C	 1.426952	 1.023810	 2.097592
+H	 0.218572	 1.883794	 0.536590
+H	 -0.665171	 1.523793	 2.001185
+C	 1.886593	 2.343197	 2.707860
+H	 2.194273	 0.649111	 1.426581
+H	 1.314410	 0.282144	 2.882877
+H	 2.039987	 3.095450	 1.942168
+H	 1.152493	 2.726856	 3.407588
+H	 2.820511	 2.218094	 3.242004
+
+	symmetry c1
+}
+set optking {
+	frozen_dihedral = ("
+		5 3 2 1
+	")
+}
+
+ee,wfn = optimize('scf', return_wfn=True)
+oeprop( wfn, 'DIPOLE', 'QUADRUPOLE', 'MULLIKEN_CHARGES')
+f=open( 'psi4out.xyz', 'w' )
+f.write( "16  " )
+f.write( str(ee) + "\n" )
+f.write( MOL.save_string_xyz() )
+f.close()
