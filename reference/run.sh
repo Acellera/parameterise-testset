@@ -10,9 +10,13 @@ fi
 D=$(head -$PBS_ARRAY_INDEX list | tail -1)
 cd $D
 
-rm -rf parameters* plots* log.txt
+#rm -rf parameters* plots* log.txt 
 
+mkdir -p logs
 export PYTHONPATH="$HOME/working/acellera/htmd"
-python $HOME/working/acellera/htmd/htmd/newparameterization/cli.py -m input.mol2 -f GAFF2  > log-gaff2.txt 2>&1
-python $HOME/working/acellera/htmd/htmd/newparameterization/cli.py -m input.mol2 -f CGENFF > log-cgen.txt 2>&1
+for ff in GAFF2 CGENFF; do
+	for basis in 6-31g-star cc-pVTZ; do
+		python $HOME/working/acellera/htmd/htmd/newparameterization/cli.py --basis $basis -m input.mol2 -f $ff > logs/$ff-$basis.txt 2>&1
+	done
+done
 
